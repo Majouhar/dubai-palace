@@ -1,0 +1,29 @@
+.card{
+    display: flex;
+    width: fit-content;
+    position: relative;
+    animation: left-in 1s;
+
+}
+.card>img{
+    width: 200px;
+    height: 240px;
+    border-radius: 20px;
+}
+.card>div{
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.307);
+    color: white;
+}
+@keyframes left-in {
+    0%{
+        transform: translateX(20px);
+    }
+    100%{
+        transform: translateX(0px);
+    }
+}

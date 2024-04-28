@@ -1,0 +1,27 @@
+.line {
+    display: flex;
+    align-items: center;
+}
+
+.line-rev {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+}
+
+.line>div:first-child,
+.line-rev>div:first-child {
+    height: 2px;
+    background-color: black;
+    width: 200px;
+
+}
+
+.line>div:last-child,
+.line-rev>div:last-child {
+    height: 6px;
+    background-color: black;
+    border-radius: 50%;
+    width: 6px;
+
+}

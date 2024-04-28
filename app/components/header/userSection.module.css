@@ -1,0 +1,24 @@
+.container {
+    display: flex;
+    gap: 10px;
+
+}
+
+.countBox {
+    position: relative;
+}
+
+.countBox>div {
+    position: absolute;
+    top: -5px;
+    right: 0px;
+    padding: 10px;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--COLOR-PRIMARY);
+    color: white;
+}

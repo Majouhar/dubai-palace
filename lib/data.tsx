@@ -1,0 +1,97 @@
+import { Item } from "@/app/types/commonTypes";
+const tags = {
+  pardha: "Pardha",
+  blue: "Blue",
+  black: "Black",
+  maxi: "Maxi",
+  fullSleeveMaxi:"Full Sleeve",
+  latest:"Latest"
+};
+export const data: Item[] = [
+  {
+    id: 1,
+    groupId: 1,
+    name: "Skinny Umberlla Pardha",
+    brand: "Test",
+    tags: [tags.pardha, tags.blue],
+    description: "Blue large Pardha",
+    size: "XL",
+    color:"Blue",
+    discount: 10,
+    inventory: 10,
+    price: 800,
+    images:["https://picsum.photos/400"],
+    date:"28/04/2024"
+  },
+  {
+    id: 2,
+    groupId: 1,
+    name: "Skinny Umberlla Pardha",
+    brand: "Test",
+    tags:[tags.pardha, tags.blue],
+    description: "Blue large Pardha",
+    size: "L",
+    color:"Blue",
+    discount: 0,
+    inventory: 5,
+    price: 800,
+    images:["https://picsum.photos/401"],  date:"28/04/2024"
+  },
+  {
+    id: 3,
+    groupId: 2,
+    name: "Check Maxi",
+    brand: "Slag",
+    tags: [tags.maxi, tags.blue],
+    description: "Blue large Pardha",
+    size: "L",
+    color:"Blue",
+    discount: 0,
+    inventory: 5,
+    price: 800,
+    images:["https://picsum.photos/402"],  date:"28/04/2024"
+  },
+  {
+    id: 4,
+    groupId: 1,
+    name: "Skinny Umberlla Pardha",
+    brand: "Test",
+    tags: [tags.pardha, tags.blue],
+    description: "Blue large Pardha",
+    size: "XL",
+    color:"Blue",
+    discount: 10,
+    inventory: 10,
+    price: 800,
+    images:["https://picsum.photos/400"],
+    date:"28/04/2024"
+  },
+  {
+    id: 5,
+    groupId: 1,
+    name: "Skinny Umberlla Pardha",
+    brand: "Test",
+    tags:[tags.pardha, tags.blue],
+    description: "Blue large Pardha",
+    size: "L",
+    color:"Blue",
+    discount: 0,
+    inventory: 5,
+    price: 800,
+    images:["https://picsum.photos/401"],  date:"28/04/2024"
+  },
+  {
+    id: 6,
+    groupId: 2,
+    name: "Check Maxi",
+    brand: "Slag",
+    tags: [tags.maxi, tags.blue],
+    description: "Blue large Pardha",
+    size: "L",
+    color:"Blue",
+    discount: 0,
+    inventory: 5,
+    price: 800,
+    images:["https://picsum.photos/402"],  date:"28/04/2024"
+  },
+];
