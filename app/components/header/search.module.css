@@ -1,5 +1,16 @@
 .search{
     border-radius: 20px;
     border: 1px solid black;
-    padding: 5px 20px;
+    padding: 5px 30px;
+}
+.container{
+    position: relative;
+}
+.icon{
+    position: absolute;
+    left: 5px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
