@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Header from "./components/header/header";
+import Footer from "./components/footer/footer";
 
 export const metadata: Metadata = {
   title: "Dubai Pardha Palace : Home",
@@ -14,7 +15,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        {children} <Footer />
+      </body>
     </html>
   );
 }

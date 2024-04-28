@@ -1,5 +1,6 @@
 import React from "react";
 import Header from "../components/header/header";
+import Footer from "../components/footer/footer";
 
 export function LanguageLayout({
   children,
@@ -12,6 +13,7 @@ export function LanguageLayout({
     <div  className={params.lang === "ml"?"ml-lang main-container":"en-lang main-container"}>
       <Header language={params.lang} />
       {children}
+  
     </div>
   );
 }
