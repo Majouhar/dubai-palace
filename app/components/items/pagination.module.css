@@ -1,0 +1,11 @@
+.paginationBtn {
+    border: 1px solid black;
+    width: fit-content;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.container {
+    display: flex;
+    gap: 5px
+}

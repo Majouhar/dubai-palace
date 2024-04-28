@@ -1,0 +1,17 @@
+.itemGrid{
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    row-gap: 20px;
+}
+.searchValue>p{
+    font-weight: 600;
+    font-size: 18px;
+    margin: 10px 0px;
+}
+.pagination{
+    margin-top: 20px;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
