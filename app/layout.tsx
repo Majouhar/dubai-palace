@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Header from "./components/header/header";
 import Footer from "./components/footer/footer";
+import RecoilRootWrapper from "./hoc/recoilWrapper";
 
 export const metadata: Metadata = {
   title: "Dubai Pardha Palace : Home",
@@ -15,9 +16,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
-        {children} <Footer />
-      </body>
+      <RecoilRootWrapper>
+        <body>
+          {children} <Footer />
+        </body>
+      </RecoilRootWrapper>
     </html>
   );
 }

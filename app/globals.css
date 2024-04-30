@@ -12,6 +12,9 @@
   --COLOR-PRIMARY: #882437;
   --COLOR-SECONDARY: #000000;
 }
+body{
+  height: 100%;
+}
 
 * {
   box-sizing: border-box;
@@ -29,6 +32,6 @@
 
 .main-container {
   padding: 20px 150px;
-
-
+  margin-bottom: 10px;
+  height: 100%;
 }

@@ -14,7 +14,8 @@
     "next": "14.2.3",
     "react": "^18",
     "react-dom": "^18",
-    "react-intl": "^6.6.2"
+    "react-intl": "^6.6.2",
+    "recoil": "^0.7.7"
   },
   "devDependencies": {
     "@types/negotiator": "^0.6.3",

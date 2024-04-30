@@ -4,19 +4,24 @@ import classes from "./search.module.css";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Overlay from "../overlay";
+import { useRecoilState } from "recoil";
+import { searchParams } from "@/app/recoil/atoms/atom";
 
 function Search() {
   const pathnameSplit = usePathname().split("/");
   const isItemsPage = pathnameSplit[pathnameSplit.length - 1] === "items";
   //   const params = useSearchParams();
   const [isOverlay, setIsOverlay] = useState(false);
+  const [_, setSearch] = useRecoilState(searchParams);
   //   const inputRef = useRef<HTMLInputElement>()
   const [value, setValue] = useState("");
   const router = useRouter();
   const handleFocus = () => {
     if (!isItemsPage) {
       setIsOverlay(true);
-      router.push("/items");
+      setTimeout(() => {
+        router.push("/items");
+      }, 300);
       setTimeout(() => {
         setIsOverlay(false);
       }, 1000);
@@ -27,8 +32,9 @@ function Search() {
       setTimeout(() => {
         setValue(value.slice(0, value.length - 1));
       }, 30);
+      setSearch("")
     }
-  }, [isItemsPage, value]);
+  }, [isItemsPage, value,setSearch]);
   return (
     <>
       {isOverlay && <Overlay />}
@@ -40,7 +46,10 @@ function Search() {
           onFocus={handleFocus}
           type="text"
           value={value}
-          onChange={(e) => setValue(e.target.value)}
+          onChange={(e) => {
+            setValue(e.target.value);
+            setSearch(e.target.value);
+          }}
           placeholder="Search"
           className={classes.search}
           spellCheck={false}
