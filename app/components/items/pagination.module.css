@@ -9,3 +9,10 @@
     display: flex;
     gap: 5px
 }
+.hide{
+    display: none;
+}
+.highlight{
+    background-color: black;
+    color: white;
+}

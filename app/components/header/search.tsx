@@ -1,18 +1,18 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import classes from "./search.module.css";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Overlay from "../overlay";
 import { useRecoilState } from "recoil";
-import { searchParams } from "@/app/recoil/atoms/atom";
+import { pageNumber, searchParams } from "@/app/recoil/atoms/atom";
 
 function Search() {
   const pathnameSplit = usePathname().split("/");
   const isItemsPage = pathnameSplit[pathnameSplit.length - 1] === "items";
-  //   const params = useSearchParams();
   const [isOverlay, setIsOverlay] = useState(false);
   const [_, setSearch] = useRecoilState(searchParams);
+  const [__, setPageNumber] = useRecoilState(pageNumber);
   //   const inputRef = useRef<HTMLInputElement>()
   const [value, setValue] = useState("");
   const router = useRouter();
@@ -32,9 +32,9 @@ function Search() {
       setTimeout(() => {
         setValue(value.slice(0, value.length - 1));
       }, 30);
-      setSearch("")
+      setSearch("");
     }
-  }, [isItemsPage, value,setSearch]);
+  }, [isItemsPage, value, setSearch]);
   return (
     <>
       {isOverlay && <Overlay />}
@@ -49,6 +49,7 @@ function Search() {
           onChange={(e) => {
             setValue(e.target.value);
             setSearch(e.target.value);
+            setPageNumber(1);
           }}
           placeholder="Search"
           className={classes.search}
