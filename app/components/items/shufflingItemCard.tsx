@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import NewItemCard from "./newItemCard";
-import { data as newData, tags} from "@/lib/data";
+import { itemData as newData, tags} from "@/lib/data";
 import classes from "./shufflingItem.module.css";
 import Link from "next/link";
 

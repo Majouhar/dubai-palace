@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import classes from "./item.module.css";
-import { data } from "@/lib/data";
+import { itemData } from "@/lib/data";
 import ItemCard from "@/app/components/items/itemCard";
 import Pagination from "@/app/components/items/pagination";
 import { useRecoilValue } from "recoil";
@@ -11,7 +11,7 @@ import { FaceFrownIcon, FaceSmileIcon } from "@heroicons/react/24/outline";
 
 const ITEM_PER_PAGE = 10;
 function AllItems() {
-  const allData = [...data];
+  const allData = [...itemData];
   const searchValue = useRecoilValue(searchParams);
   const pageNumberValue = useRecoilValue(pageNumber);
   const totalPagesValue = useRecoilValue(totalPages);

@@ -7,7 +7,7 @@ export const tags = {
   fullSleeveMaxi: "Full Sleeve",
   latest: "Latest",
 };
-export const data: Item[] = [
+export const itemData: Item[] = [
   {
     id: 1,
     groupId: 1,

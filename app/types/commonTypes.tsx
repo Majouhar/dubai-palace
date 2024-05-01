@@ -32,3 +32,37 @@ export type Item = {
   date: string;
   features?: string[];
 };
+
+export type User = {
+  firstName: string;
+  lastName: string;
+  email?: string;
+  mobile: string;
+  addressLine1?: string;
+  addressLine2?: string;
+  pincode: string;
+  password: string;
+  district?: string;
+  cart:Cart;
+  orders:Order
+};
+export type OrderItem = {
+  item:Item,
+  quantity:number,
+  orderPrice:number,
+  dateAdded:string
+}
+export type Cart = {
+  cartId:string;
+  items:OrderItem[]
+}
+export type Order = {
+  items:OrderItem[];
+  orderId:string;
+  status:string;
+}
+
+export type WishList = {
+  items: Item[];
+  wishListId :string;
+}
