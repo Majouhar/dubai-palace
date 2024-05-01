@@ -2,11 +2,14 @@ import React from "react";
 import classes from "./itemCard.module.css";
 import Image from "next/image";
 import { Item } from "@/app/types/commonTypes";
+import Link from "next/link";
 
-function ItemCard({item}:Readonly<{item:Item}>) {
+function ItemCard({ item }: Readonly<{ item: Item }>) {
   return (
     <div className={classes["card"]}>
-      <Image src={item.images[0]} width={150} height={200} alt={item.name} />
+      <Link href={`/items/${item.id}`}>
+        <Image src={item.images[0]} width={150} height={200} alt={item.name} />
+      </Link>
       <h4 className={classes.itemName}>{item.name}</h4>
       <div className={classes.priceAction}>
         <div>

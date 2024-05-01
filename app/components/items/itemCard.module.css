@@ -5,9 +5,10 @@
     flex-direction: column;
     width: fit-content;
 }
-.card>img{
+.card>a>img{
     width: 200px;
     height: 240px;
+    cursor: pointer;
 }
 .itemName{
     margin-top: 5px;

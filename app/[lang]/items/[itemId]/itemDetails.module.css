@@ -1,0 +1,116 @@
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.discount {
+    text-decoration: line-through;
+    color: rgba(0, 0, 0, 0.651)
+}
+
+.priceContainer {
+    display: flex;
+    gap: 10px;
+    font-size: 25px;
+}
+
+.priceContainer>p:last-child {
+    color: var(--COLOR-PRIMARY);
+}
+
+.colorBox {
+    width: 20px;
+    height: 20px;
+    border: 1px solid rgba(61, 61, 61, 0.341);
+    border-radius: 10px;
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    cursor: pointer;
+    opacity: 0.85;
+}
+
+.colorBox:hover {
+    opacity: 1;
+}
+
+.itemDetails {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.itemDetails>h2 {
+    font-size: 40px;
+    margin-bottom: 15px;
+}
+
+.itemDetails>p {
+    font-size: 15px;
+    color: rgba(41, 41, 41, 0.686);
+}
+
+.itemDetails>div>ul {
+    margin: 15px 0px;
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    list-style: inside;
+    list-style-type: square;
+}
+
+
+
+
+
+.blue {
+    background-color: blue;
+    color: white;
+}
+
+.white {
+    background-color: white;
+    color: black;
+}
+
+.yellow {
+    background-color: yellow;
+    color: black;
+}
+
+.black {
+    background-color: black;
+    color: white;
+}
+
+.smallTitle {
+    color: rgba(0, 0, 0, 0.747);
+    font-size: 15px;
+    font-weight: 600;
+    margin: 15px 0px;
+}
+
+.checkout {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.checkout>button {
+    background-color: var(--COLOR-PRIMARY);
+    opacity: 0.85;
+    color: white;
+    width: 100%;
+    margin: 0px 20px;
+    border-radius: 10px;
+}
+.variantsGrid{
+    display: grid;
+    grid-template-columns: repeat(8,1fr);
+    gap: 10px;
+}

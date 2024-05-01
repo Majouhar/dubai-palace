@@ -9,7 +9,7 @@ import { pageNumber, searchParams, totalPages } from "@/app/recoil/atoms/atom";
 import { Item } from "@/app/types/commonTypes";
 import { FaceFrownIcon, FaceSmileIcon } from "@heroicons/react/24/outline";
 
-const ITEM_PER_PAGE = 2;
+const ITEM_PER_PAGE = 10;
 function AllItems() {
   const allData = [...data];
   const searchValue = useRecoilValue(searchParams);

@@ -35,7 +35,7 @@
 
 .hideAnimation {
     position: absolute;
-    animation: hide 1s forwards;
+    animation: hide 2s forwards;
 }
 
 .displayAnimation {

@@ -28,6 +28,7 @@ export type Item = {
   discount: number;
   inventory: number;
   color: string;
-  images:string[];
-  date:string;
+  images: string[];
+  date: string;
+  features?: string[];
 };
