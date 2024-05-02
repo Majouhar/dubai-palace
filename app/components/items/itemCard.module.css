@@ -1,6 +1,6 @@
 .card{
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: flex-start;
     flex-direction: column;
     width: fit-content;
@@ -13,6 +13,7 @@
 .itemName{
     margin-top: 5px;
     font-size: 16px;
+    max-width: 200px;
 }
 .discount{
     text-decoration: line-through;

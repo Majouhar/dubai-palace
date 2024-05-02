@@ -17,7 +17,7 @@ export type LocalDictPromise = {
 export type LocalDict = { [key: string]: string };
 
 export type Item = {
-  id: number;
+  id: string;
   groupId: number; //suppose a item having 3 size, we use this
   name: string;
   brand: string;
@@ -31,6 +31,7 @@ export type Item = {
   images: string[];
   date: string;
   features?: string[];
+  orderMultiple?: number;
 };
 
 export type User = {
@@ -43,26 +44,26 @@ export type User = {
   pincode: string;
   password: string;
   district?: string;
-  cart:Cart;
-  orders:Order
+  cart: Cart;
+  orders: Order;
 };
 export type OrderItem = {
-  item:Item,
-  quantity:number,
-  orderPrice:number,
-  dateAdded:string
-}
+  itemID: string;
+  quantity: number;
+  dateAdded: string;
+};
 export type Cart = {
-  cartId:string;
-  items:OrderItem[]
-}
+  cartId: string;
+  items: OrderItem[];
+};
 export type Order = {
-  items:OrderItem[];
-  orderId:string;
-  status:string;
-}
+  items: OrderItem[];
+  orderId: string;
+  status: string;
+  dateOrdered: string;
+};
 
 export type WishList = {
-  items: Item[];
-  wishListId :string;
-}
+  itemIDs: number[];
+  wishListId: string;
+};
