@@ -2,8 +2,6 @@ import React from "react";
 import classes from "./cart.module.css";
 import CartItemCard from "@/app/components/cartItemCard/cartItemCard";
 import { itemData, orderItem } from "@/lib/data";
-import { Item } from "@/app/types/commonTypes";
-
 function Cart() {
   const newItems = orderItem.map((item) => {
     const itemTemp = itemData.find((val) => val.id === item.itemID);

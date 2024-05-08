@@ -6,12 +6,20 @@ import {
   UserIcon,
   ShoppingCartIcon,
 } from "@heroicons/react/24/outline";
+import { useRouter } from "next/navigation";
 
 function UserSection() {
   const [count] = useState(2);
-  const handleWishList = () => {};
-  const handleProfileClick = () => {};
-  const handleCartClick = () => {};
+  const router = useRouter()
+  const handleWishList = () => {
+    router.push("/wishlist")
+  };
+  const handleProfileClick = () => {
+    router.push("/user")
+  };
+  const handleCartClick = () => {
+    router.push("/cart")
+  };
   return (
     <div className={classes.container}>
       <HeartIcon onClick={handleWishList} className="size-8  cursor-pointer" />

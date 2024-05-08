@@ -7,6 +7,12 @@ import Counter from "./counter";
 import { CheckBadgeIcon, TrashIcon } from "@heroicons/react/24/outline";
 
 function CartItemCard({ item }: Readonly<{ item: Item }>) {
+  const originalPrice = (item?.orderQuantity ?? 0) * (item?.price ?? 0);
+  const discountPrice =
+    ((item?.orderQuantity ?? 0) *
+      (item?.price ?? 0) *
+      (100 - (item?.discount ?? 0))) /
+    100;
   return (
     <div className={classes.container}>
       <Image
@@ -36,9 +42,19 @@ function CartItemCard({ item }: Readonly<{ item: Item }>) {
         </div>
       </div>
       <div className={classes.priceContainer}>
-        <p> ₹ {item?.price}</p>
+        <p>
+          <span
+            className={
+              discountPrice !== originalPrice ? classes.linethrough : "hidden"
+            }
+          >
+            ₹{originalPrice}
+          </span>
+          <span>₹{discountPrice}</span>
+        </p>
+
         <div>
-          <Counter value={item.orderQuantity ?? 1} />
+          <Counter value={item.orderQuantity ?? 1} itemId ={item.id} />
         </div>
       </div>
     </div>

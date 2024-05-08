@@ -1,12 +1,29 @@
-import React from "react";
-import classes from "./counter.module.css"
+"use client";
+import React, { useState } from "react";
+import classes from "./counter.module.css";
 
-function Counter({ value }: Readonly<{ value: number }>) {
+function Counter({
+  value,
+  itemId,
+}: Readonly<{ value: number; itemId: string }>) {
+  const [counter, setCounter] = useState(value);
+  const handleCounter = (value: number) => {
+    if (counter !== 1 && value < 0) {
+      setCounter((prev) => prev -1);
+    } else if (value > 0) {
+      setCounter((prev) => prev + 1);
+    }
+  };
   return (
     <div className={classes.container}>
-      <div>-</div>
-      <div>{value}</div>
-      <div>+</div>
+      <div
+        className={counter === 1 ? classes.disableMinus : ""}
+        onClick={() => handleCounter(-1)}
+      >
+        -
+      </div>
+      <div>{counter}</div>
+      <div onClick={() => handleCounter(1)}>+</div>
     </div>
   );
 }
