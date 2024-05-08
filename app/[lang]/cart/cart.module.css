@@ -1,0 +1,42 @@
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--COLOR-TERTIARY);
+}
+.cartItems{
+    width: fit-content;
+    background-color: white;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 20px;
+}
+.cartItems >h3{
+    font-size: 25px;
+    font-weight: 700;
+}
+.itemContainer{
+    max-height: 400px;
+    overflow-y:scroll ;
+}
+.priceContainer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+}
+.priceContainer>p{
+    font-size: 18px;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+.total{
+    font-weight: 600;
+}
+.priceContainer button {
+    background-color: var(--COLOR-PRIMARY);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 10px;
+}

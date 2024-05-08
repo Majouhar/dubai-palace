@@ -32,6 +32,7 @@ export type Item = {
   date: string;
   features?: string[];
   orderMultiple?: number;
+  orderQuantity?: number;
 };
 
 export type User = {
@@ -44,8 +45,8 @@ export type User = {
   pincode: string;
   password: string;
   district?: string;
-  cart: Cart;
-  orders: Order;
+  cartId: string;
+  orders: string[];
 };
 export type OrderItem = {
   itemID: string;

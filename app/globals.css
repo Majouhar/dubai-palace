@@ -11,6 +11,7 @@
 :root {
   --COLOR-PRIMARY: #882437;
   --COLOR-SECONDARY: #000000;
+  --COLOR-TERTIARY:#f5dede;
 }
 body{
   height: 100%;

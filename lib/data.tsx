@@ -124,12 +124,12 @@ export const itemData: Item[] = [
 
 export const orderItem: OrderItem[] = [
   {
-    itemID: 1,
+    itemID: slugify("Skinny Umberlla Pardha Blue XL",{lower:true}),
     dateAdded: "02/05/2025",
     quantity: 2,
   },
   {
-    itemID: 2,
+    itemID: slugify("Skinny Umberlla Pardha Black Large",{lower:true}),
     dateAdded: "02/02/2025",
     quantity: 1,
   },
