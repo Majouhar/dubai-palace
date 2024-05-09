@@ -36,6 +36,7 @@ export type Item = {
 };
 
 export type User = {
+  userId:number;
   firstName: string;
   lastName: string;
   email?: string;
@@ -45,8 +46,9 @@ export type User = {
   pincode: string;
   password: string;
   district?: string;
-  cartId: string;
-  orders: string[];
+  cartId: number;
+  orders: number[];
+  wishListId:number;
 };
 export type OrderItem = {
   itemID: string;
@@ -54,7 +56,7 @@ export type OrderItem = {
   dateAdded: string;
 };
 export type Cart = {
-  cartId: string;
+  cartId: number;
   items: OrderItem[];
 };
 export type Order = {
@@ -65,6 +67,6 @@ export type Order = {
 };
 
 export type WishList = {
-  itemIDs: number[];
+  itemIDs: string[];
   wishListId: string;
 };

@@ -1,0 +1,74 @@
+generator client {
+  provider = "prisma-client-js"
+  engineType = "library"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model carts {
+  cart_id Int     @id @default(autoincrement())
+  items   Json
+  users   users[]
+}
+
+model items {
+  id             String        @id @db.VarChar(255)
+  group_id       Int
+  name           String        @unique @db.VarChar(255)
+  brand          String        @db.VarChar(255)
+  description    String
+  price          Decimal       @db.Decimal(10, 2)
+  tags           String[]
+  size           String?       @db.VarChar(255)
+  discount       Decimal       @db.Decimal(5, 2)
+  inventory      Int
+  color          String        @db.VarChar(255)
+  images         String[]
+  date           DateTime      @db.Date
+  features       String[]
+  order_multiple Int?
+  order_quantity Int?
+  order_items    order_items[]
+}
+
+model order_items {
+  order_item_id Int      @id @default(autoincrement())
+  item_id       String?  @db.VarChar(255)
+  quantity      Int
+  date_added    DateTime @db.Date
+  items         items?   @relation(fields: [item_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model orders {
+  order_id     Int      @id @default(autoincrement())
+  items        Json
+  status       String   @db.VarChar(255)
+  date_ordered DateTime @db.Date
+}
+
+model users {
+  user_id       Int         @id @default(autoincrement())
+  first_name    String      @db.VarChar(255)
+  last_name     String      @db.VarChar(255)
+  email         String?     @db.VarChar(255)
+  mobile        String      @db.VarChar(255)
+  address_line1 String?     @db.VarChar(255)
+  address_line2 String?     @db.VarChar(255)
+  pincode       String      @db.VarChar(255)
+  password      String?     @db.VarChar(255)
+  district      String?     @db.VarChar(255)
+  cart_id       Int?
+  orders        Int[]
+  wish_list_id  Int?
+  carts         carts?      @relation(fields: [cart_id], references: [cart_id], onDelete: NoAction, onUpdate: NoAction)
+  wish_lists    wish_lists? @relation(fields: [wish_list_id], references: [wish_list_id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model wish_lists {
+  wish_list_id Int      @id @default(autoincrement())
+  item_ids     String[] @db.VarChar(255)
+  users        users[]
+}
