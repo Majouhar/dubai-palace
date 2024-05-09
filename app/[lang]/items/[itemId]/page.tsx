@@ -5,8 +5,8 @@ import { HeartIcon } from "@heroicons/react/24/outline";
 import ProductImage from "@/app/components/itemDetails/image";
 import Link from "next/link";
 
-function ItemDetailsPage({ params }: Readonly<{ params: { itemId: number } }>) {
-  const item = itemData.find((it) => it.id == params.itemId);
+function ItemDetailsPage({ params }: Readonly<{ params: { itemId: string } }>) {
+  const item = itemData.find((it) => it.id === params.itemId);
   const groupItems = itemData.filter((it) => it.groupId === item?.groupId);
   return (
     <main>
