@@ -109,8 +109,42 @@
     margin: 0px 20px;
     border-radius: 10px;
 }
-.variantsGrid{
+
+.variantsGrid {
     display: grid;
-    grid-template-columns: repeat(8,1fr);
+    grid-template-columns: repeat(8, 1fr);
     gap: 10px;
+}
+
+@media only screen and (max-width: 767px) {
+    .grid {
+        display: flex;
+        flex-direction: column;
+        
+    }
+    .itemDetails {
+        padding: 4px 20px;
+        margin-bottom: 20px;
+    }
+    .itemDetails>h2{
+        font-size: 28px;
+    }
+    .priceContainer > p{
+        font-size: 20px;
+    }
+
+    .variantsGrid {
+        grid-template-columns: repeat(8, 1fr);
+        gap: 5px;
+    }
+}
+
+/* Styles for Tablet (768px to 991px) */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    /* CSS for Tablet */
+}
+
+/* Styles for Laptop/Desktop (992px and above) */
+@media only screen and (min-width: 992px) {
+    /* CSS for Laptop/Desktop */
 }

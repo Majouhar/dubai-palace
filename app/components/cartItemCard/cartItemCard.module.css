@@ -97,6 +97,9 @@
     .properties>small{
         font-size: 10px;
     }
+    .sizeColorContainer{
+        gap: 5px;
+    }
     .sizeColorContainer p,.buttonContainer {
         font-size: 10px;
     }
