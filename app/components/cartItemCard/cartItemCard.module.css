@@ -76,3 +76,42 @@
     margin-right: 10px;
     opacity: 0.7;
 }
+@media only screen and (max-width: 767px) {
+    /* CSS for Mobile */
+    .container {
+        display: grid;
+        grid-template-columns: 3fr 1fr ;
+        grid-template-rows: auto auto;
+        justify-content: center;
+        align-items: center;
+        column-gap: 10px;
+       
+        margin: 40px 20px;
+    }
+    .container>div:nth-child(2){
+        grid-row: span 2;
+    }
+    .properties>h4 {
+        font-size: 14px;
+    }
+    .properties>small{
+        font-size: 10px;
+    }
+    .sizeColorContainer p,.buttonContainer {
+        font-size: 10px;
+    }
+    
+    .priceContainer>p {
+        font-size: 12px
+    }
+}
+
+/* Styles for Tablet (768px to 991px) */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    /* CSS for Tablet */
+}
+
+/* Styles for Laptop/Desktop (992px and above) */
+@media only screen and (min-width: 992px) {
+    /* CSS for Laptop/Desktop */
+}

@@ -3,3 +3,20 @@
     font-weight: bolder;
     font-size: 30px;
 }
+/* Styles for Mobile (up to 767px) */
+@media only screen and (max-width: 767px) {
+    /* CSS for Mobile */
+    .logo>h1{
+        font-size: 25px;
+    }
+}
+
+/* Styles for Tablet (768px to 991px) */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    /* CSS for Tablet */
+}
+
+/* Styles for Laptop/Desktop (992px and above) */
+@media only screen and (min-width: 992px) {
+    /* CSS for Laptop/Desktop */
+}

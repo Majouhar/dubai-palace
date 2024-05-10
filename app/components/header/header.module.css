@@ -13,3 +13,20 @@
     background: radial-gradient(rgba(244, 212, 145, 255), rgba(244, 212, 145, 255), white, rgba(255, 255, 255, 0));
     border-radius: 50%;
 }
+
+/* Default styles */
+
+/* Styles for Mobile (up to 767px) */
+@media only screen and (max-width: 767px) {
+    /* CSS for Mobile */
+}
+
+/* Styles for Tablet (768px to 991px) */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    /* CSS for Tablet */
+}
+
+/* Styles for Laptop/Desktop (992px and above) */
+@media only screen and (min-width: 992px) {
+    /* CSS for Laptop/Desktop */
+}

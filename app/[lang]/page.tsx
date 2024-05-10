@@ -3,7 +3,6 @@ import classes from "./home.module.css";
 import { getDictionary } from "@/lib/dictionary";
 import Line from "../components/line";
 import ShufflingCards from "../components/items/shufflingItemCard";
-import { getUser } from "@/lib/actions";
 
 export default async function Home({
   params: { lang },
@@ -11,7 +10,6 @@ export default async function Home({
   params: { lang: string };
 }>) {
   const dict = await getDictionary(lang);
-  const user = await getUser()
   return (
     <main>
       <div className={classes.container}>

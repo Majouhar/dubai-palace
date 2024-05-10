@@ -1,42 +1,70 @@
-.container{
+.container {
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: var(--COLOR-TERTIARY);
 }
-.cartItems{
+
+.cartItems {
     width: fit-content;
     background-color: white;
     padding: 20px;
     margin: 20px;
     border-radius: 20px;
 }
-.cartItems >h3{
+
+.cartItems>h3 {
     font-size: 25px;
     font-weight: 700;
 }
-.itemContainer{
+
+.itemContainer {
     max-height: 400px;
-    overflow-y:scroll ;
+    overflow-y: scroll;
 }
-.priceContainer{
+
+.priceContainer {
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-direction: column;
 }
-.priceContainer>p{
+
+.priceContainer>p {
     font-size: 18px;
     display: flex;
     width: 100%;
     justify-content: space-between;
 }
-.total{
+
+.total {
     font-weight: 600;
 }
+
 .priceContainer button {
     background-color: var(--COLOR-PRIMARY);
     color: white;
     padding: 5px 10px;
     border-radius: 10px;
+}
+
+@media only screen and (max-width: 767px) {
+    .itemContainer {
+        max-height: 600px;
+
+    }
+    .priceContainer>p {
+        font-size: 14px
+    }
+    
+}
+
+/* Styles for Tablet (768px to 991px) */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    /* CSS for Tablet */
+}
+
+/* Styles for Laptop/Desktop (992px and above) */
+@media only screen and (min-width: 992px) {
+    /* CSS for Laptop/Desktop */
 }

@@ -37,6 +37,7 @@
     align-items: flex-start;
     justify-content: center;
     flex-direction: column;
+    width: 100%;
 
 }
 .en-title{
@@ -48,7 +49,7 @@
 .banner{
     height: 100%;
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
     flex-direction: column;
 }
@@ -67,4 +68,54 @@
         font-size: 25px;
         margin: 40px 0px;
     }
+}
+
+@media only screen and (max-width: 767px) {
+    /* CSS for Mobile */
+    .container {
+        display: flex;
+        flex-direction: column;
+        padding: 5px 10px;
+        gap:10px;
+    }
+    .title>h1 {
+        font-weight: 700;
+        width: 75%;
+        margin: 10px 0px;
+        font-size: 30px;
+    }
+    .banner>img{
+        border-radius: 20%;
+        height: 200px;
+        width: 100%;
+    }
+    .banner{
+        height: 100%;
+        width: 100%;
+    }
+    .bubble {
+        border-radius: 10px;
+        padding: 5px 20px;
+        font-size: 14px;
+ 
+    }
+    .newArrivals{
+        margin: 5px 0px 50px 0px;
+        width: 100%;
+    
+        .head{
+
+            font-size: 22px;
+        }
+    }
+}
+
+/* Styles for Tablet (768px to 991px) */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    /* CSS for Tablet */
+}
+
+/* Styles for Laptop/Desktop (992px and above) */
+@media only screen and (min-width: 992px) {
+    /* CSS for Laptop/Desktop */
 }

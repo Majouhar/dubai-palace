@@ -25,3 +25,22 @@
     width: 6px;
 
 }
+
+@media only screen and (max-width: 767px) {
+
+    .line>div:first-child,
+    .line-rev>div:first-child {
+        width: 100px;
+        height: 1px;
+
+    }
+
+    .line>div:last-child,
+    .line-rev>div:last-child {
+        height: 3px;
+        background-color: black;
+        border-radius: 50%;
+        width: 3px;
+
+    }
+}

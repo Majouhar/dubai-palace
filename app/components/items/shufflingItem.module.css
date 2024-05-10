@@ -3,3 +3,19 @@
     grid-template-columns:repeat(5, 1fr);
     place-items: center;
 }
+@media only screen and (max-width: 767px) {
+    .itemContainer{
+        grid-template-columns:repeat(3, 1fr);
+        column-gap: 5px;
+    }
+}
+
+/* Styles for Tablet (768px to 991px) */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    /* CSS for Tablet */
+}
+
+/* Styles for Laptop/Desktop (992px and above) */
+@media only screen and (min-width: 992px) {
+    /* CSS for Laptop/Desktop */
+}

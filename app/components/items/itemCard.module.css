@@ -1,25 +1,29 @@
-.card{
+.card {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     flex-direction: column;
     width: fit-content;
 }
-.card>a>img{
+
+.card>a>img {
     width: 200px;
     height: 240px;
     cursor: pointer;
 }
-.itemName{
+
+.itemName {
     margin-top: 5px;
     font-size: 16px;
     max-width: 200px;
 }
-.discount{
+
+.discount {
     text-decoration: line-through;
     opacity: 0.5;
 }
-.priceAction{
+
+.priceAction {
     display: flex;
     width: 100%;
     justify-content: space-between;
@@ -27,13 +31,58 @@
     margin-top: 5px;
     font-size: 14px;
 }
-.priceAction>div{
+
+.priceAction>div {
     display: flex;
     gap: 5px;
 }
-.priceAction>button{
+
+.priceAction>button {
     border: 1px solid black;
     padding: 0px 10px;
     border-radius: 20px;
-  
+
+}
+
+@media only screen and (max-width: 767px) {
+
+    /* CSS for Mobile */
+    .card>a>img {
+        width: 120px;
+        height: 140px;
+        cursor: pointer;
+    }
+
+    .itemName {
+        margin-top: 5px;
+        font-size: 12px;
+        max-width: 140px;
+    }
+
+    .priceAction {
+        padding: 0px 3px ;
+        font-size: 10px;
+    }
+
+    .priceAction>div {
+        display: flex;
+        gap: 5px;
+    }
+
+    .priceAction>button {
+        border: 1px solid black;
+        padding: 0px 5px;
+        border-radius: 20px;
+
+    }
+}
+
+/* Styles for Tablet (768px to 991px) */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    /* CSS for Tablet */
+}
+
+/* Styles for Laptop/Desktop (992px and above) */
+@media only screen and (min-width: 992px) {
+    /* CSS for Laptop/Desktop */
 }
