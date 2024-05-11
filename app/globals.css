@@ -22,16 +22,6 @@ body{
   user-select: none;
 }
 
-.en-lang>* {
-  font-family: "Nova Flat";
-
-}
-
-.ml-lang>* {
-  font-family: "Anek Malayalam";
-  font-size: small;
-}
-
 .main-container {
   padding: 20px 150px;
   margin-bottom: 10px;

@@ -1,5 +1,5 @@
 generator client {
-  provider = "prisma-client-js"
+  provider   = "prisma-client-js"
   engineType = "library"
 }
 
@@ -35,18 +35,23 @@ model items {
 }
 
 model order_items {
-  order_item_id Int      @id @default(autoincrement())
-  item_id       String?  @db.VarChar(255)
-  quantity      Int
-  date_added    DateTime @db.Date
-  items         items?   @relation(fields: [item_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  order_item_id     Int      @id @default(autoincrement())
+  item_id           String?  @db.VarChar(255)
+  quantity          Int
+  date_added        DateTime @db.Date
+  date_delivered    String?  @db.VarChar(255)
+  price_while_order Decimal? @db.Decimal(10, 2)
+  items             items?   @relation(fields: [item_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model orders {
-  order_id     Int      @id @default(autoincrement())
-  items        Json
-  status       String   @db.VarChar(255)
-  date_ordered DateTime @db.Date
+  order_id               Int      @id @default(autoincrement())
+  items                  Json
+  status                 String   @db.VarChar(255)
+  date_ordered           DateTime @db.Date
+  shipped_date           String?  @db.VarChar(255)
+  delivered_date         String?  @db.VarChar(255)
+  expected_delivery_date String?  @db.VarChar(255)
 }
 
 model users {
@@ -54,7 +59,7 @@ model users {
   first_name    String      @db.VarChar(255)
   last_name     String      @db.VarChar(255)
   email         String?     @db.VarChar(255)
-  mobile        String      @db.VarChar(255)
+  mobile        String      @db.VarChar(255) @unique
   address_line1 String?     @db.VarChar(255)
   address_line2 String?     @db.VarChar(255)
   pincode       String      @db.VarChar(255)
@@ -63,6 +68,7 @@ model users {
   cart_id       Int?
   orders        Int[]
   wish_list_id  Int?
+  returns       Int[]
   carts         carts?      @relation(fields: [cart_id], references: [cart_id], onDelete: NoAction, onUpdate: NoAction)
   wish_lists    wish_lists? @relation(fields: [wish_list_id], references: [wish_list_id], onDelete: NoAction, onUpdate: NoAction)
 }
@@ -71,4 +77,12 @@ model wish_lists {
   wish_list_id Int      @id @default(autoincrement())
   item_ids     String[] @db.VarChar(255)
   users        users[]
+}
+
+model returns {
+  return_id              Int     @id @default(autoincrement())
+  items                  Json
+  status                 String  @db.VarChar(255)
+  date_returned          String? @db.VarChar(255)
+  expected_date_returned String  @db.VarChar(255)
 }

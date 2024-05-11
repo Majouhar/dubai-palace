@@ -10,6 +10,7 @@ export default async function Home({
   params: { lang: string };
 }>) {
   const dict = await getDictionary(lang);
+
   return (
     <main>
       <div className={classes.container}>
