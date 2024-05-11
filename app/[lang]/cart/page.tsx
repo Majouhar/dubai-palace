@@ -1,10 +1,13 @@
 import React from "react";
 import classes from "./cart.module.css";
 import CartItemCard from "@/app/components/cartItemCard/cartItemCard";
-import { itemData, orderItem } from "@/lib/data";
-function Cart() {
+import { orderItem } from "@/lib/data";
+import { getAllProducts } from "@/lib/actions";
+import { Item } from "@/app/types/commonTypes";
+async function Cart() {
+  const itemData = await getAllProducts();
   const newItems = orderItem.map((item) => {
-    const itemTemp = itemData.find((val) => val.id === item.itemID);
+    const itemTemp = itemData.find((val:Item) => val.id === item.itemID);
     if (itemTemp) {
       itemTemp.orderQuantity = item.quantity;
       return itemTemp;

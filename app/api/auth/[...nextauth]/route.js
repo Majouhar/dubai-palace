@@ -13,15 +13,21 @@ const authOptions = {
         }
         const isValid = await verifyPassword(
           credentials.password,
-          user.password 
+          user.password
         );
         if (!isValid) {
           throw Error("Wrong credentials");
         }
-        return { phone: user.mobile, id: user.user_id };
+        return {
+          image: user.user_id,
+          email: user.mobile,
+          name: user.first_name + " " + user.last_name,
+        };
       },
     }),
   ],
+
+
   secret: process.env.NEXTAUTH_SECRET,
 };
 

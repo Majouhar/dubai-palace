@@ -1,24 +1,14 @@
-import { NextRequest, NextResponse } from "next/server";
-import fs from "fs";
-import path from "path";
+import { NextRequest, NextResponse } from "next/server"
 import { hashPassword } from "@/lib/auth";
-import { randomUUID } from "crypto";
 import { createCart, createUser, createWishList, getUser } from "@/lib/actions";
-import { Cart, User, WishList } from "@/app/types/commonTypes";
 
 export async function POST(request: NextRequest) {
   const data = await request.json();
   const {
     mobile,
     password,
-    firstName,
-    lastName,
-    pincode,
-    district,
-    addressLine1,
-    addressLine2,
   } = data;
-  if (!mobile || !(mobile.length < 10) || password?.trim()?.length < 7) {
+  if (!mobile || (mobile.length < 10) || password?.trim()?.length < 7) {
     return NextResponse.json(
       { message: "Invalide Username/Password" },
       { status: 422 }

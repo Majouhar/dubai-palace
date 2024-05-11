@@ -2,7 +2,6 @@ import React from "react";
 import classes from "./cartItemCard.module.css";
 import Image from "next/image";
 import { Item, OrderItem } from "@/app/types/commonTypes";
-import { itemData, orderItem } from "@/lib/data";
 import Counter from "./counter";
 import { CheckBadgeIcon, TrashIcon } from "@heroicons/react/24/outline";
 

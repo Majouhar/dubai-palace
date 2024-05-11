@@ -10,7 +10,6 @@ import { Item } from "@/app/types/commonTypes";
 function ShufflingCards({ newData }: Readonly<{ newData: Item[] }>) {
   const data = newData.filter((d) => d.tags.includes(tags.latest));
   const length = data.length;
-  console.log(length);
   const [shuffleData, setShuffleData] = useState<number[]>([0, 1, 2, 3, 4]);
   const isMobile = useMediaQuery({ query: "(max-width: 767px)" });
   useEffect(() => {

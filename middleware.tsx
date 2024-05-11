@@ -29,6 +29,7 @@ export default async function middleware(
 ) {
   const pathname = req.nextUrl.pathname;
   const token = await getToken({ req });
+
   const isAuthenticated = !!token;
   const localeInPathName = i18n.locales.find((locale) =>
     pathname.startsWith(`/${locale}`)
@@ -55,7 +56,8 @@ export default async function middleware(
   } else if (
     pathname === `/${locale}` ||
     pathname.includes("items") ||
-    pathname.includes("login")
+    pathname.includes("login") ||
+    isAuthenticated
   ) {
     return NextResponse.next();
   }

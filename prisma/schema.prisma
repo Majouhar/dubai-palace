@@ -65,9 +65,9 @@ model users {
   pincode       String      @db.VarChar(255)
   password      String?     @db.VarChar(255)
   district      String?     @db.VarChar(255)
-  cart_id       Int?
+  cart_id       Int?        @unique
   orders        Int[]
-  wish_list_id  Int?
+  wish_list_id  Int?        @unique
   returns       Int[]
   carts         carts?      @relation(fields: [cart_id], references: [cart_id], onDelete: NoAction, onUpdate: NoAction)
   wish_lists    wish_lists? @relation(fields: [wish_list_id], references: [wish_list_id], onDelete: NoAction, onUpdate: NoAction)

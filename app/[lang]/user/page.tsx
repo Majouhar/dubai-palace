@@ -1,11 +1,10 @@
-import React from 'react'
+"use client";
+import { useSession } from "next-auth/react";
+import React from "react";
 
 function Cart() {
-  return (
-    <div>
-      user
-    </div>
-  )
+  const { data, status } = useSession();
+  return <div>{data?.user?.name}</div>;
 }
 
-export default Cart
+export default Cart;

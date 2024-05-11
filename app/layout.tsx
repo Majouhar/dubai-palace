@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Footer from "./components/footer/footer";
 import RecoilRootWrapper from "./hoc/recoilWrapper";
-
-
+import { Providers } from "@/store/next-provider";
 
 export const metadata: Metadata = {
   title: "Dubai Pardha Palace : Home",
@@ -16,10 +15,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" >
+    <html lang="en">
       <RecoilRootWrapper>
         <body>
-          {children} <Footer />
+          <Providers>
+            {children} <Footer />
+          </Providers>
         </body>
       </RecoilRootWrapper>
     </html>

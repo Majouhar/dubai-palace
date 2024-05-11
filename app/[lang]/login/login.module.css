@@ -1,0 +1,18 @@
+.flex form,.flex{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.flex input {
+    border: 1px solid black;
+}
+
+.flex button {
+    border: 1px solid black;
+    background: black;
+    color: white;
+}
