@@ -53,12 +53,23 @@
     align-items: center;
     flex-direction: column;
 }
+.banner>div{
+    position: static;
+    opacity: 0.2;
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    z-index: -1;
+    box-shadow: 0px 0px 150px 150px  var(--COLOR-PRIMARY);
+}
 .banner>img{
     position: absolute;
     border-radius: 50px;
     width: 700px;
     height: 550px;
     z-index: -1;
+    mix-blend-mode: multiply;
+    
 }
 .newArrivals{
     margin: 50px 0px;
@@ -93,6 +104,15 @@
         border-radius: 20%;
         height: 100%;
         width: 100%;
+    }
+    .banner>div{
+        position: absolute;
+        opacity: 0.2;
+        border-radius: 50%;
+        width: 10px;
+        height: 10px;
+        z-index: -1;
+        box-shadow: 0px 0px 120px 120px  var(--COLOR-PRIMARY);
     }
     .banner{
         height: 100%;

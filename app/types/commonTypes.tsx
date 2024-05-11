@@ -41,11 +41,11 @@ export type User = {
   lastName: string;
   email?: string;
   mobile: string;
-  addressLine1?: string;
-  addressLine2?: string;
+  addressLine1: string | null;
+  addressLine2: string | null;
   pincode: string;
   password: string;
-  district?: string;
+  district: string | null;
   cartId: number;
   orders: number[];
   wishListId: number;
@@ -68,5 +68,5 @@ export type Order = {
 
 export type WishList = {
   itemIDs: string[];
-  wishListId: string;
+  wishListId: number;
 };

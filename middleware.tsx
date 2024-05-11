@@ -1,9 +1,11 @@
 import { NextFetchEvent, NextRequest, NextResponse } from "next/server";
 import { i18n } from "./i18n";
 import { match as matchLocale } from "@formatjs/intl-localematcher";
-import  Negotiator  from "negotiator";
+import Negotiator from "negotiator";
+import { getToken } from "next-auth/jwt";
+import { withAuth } from "next-auth/middleware";
 
-function getLocale(request:NextRequest) {
+function getLocale(request: NextRequest) {
   // Negotiator expects plain object so we need to transform headers
   const negotiatorHeaders: { [key: string]: string } = {};
   request.headers.forEach((value, key) => (negotiatorHeaders[key] = value));
@@ -21,8 +23,13 @@ function getLocale(request:NextRequest) {
   return locale;
 }
 const PUBLIC_FILE = /\.(.*)$/;
-export default async function middleware(req:NextRequest, event:NextFetchEvent) {
+export default async function middleware(
+  req: NextRequest,
+  event: NextFetchEvent
+) {
   const pathname = req.nextUrl.pathname;
+  const token = await getToken({ req });
+  const isAuthenticated = !!token;
   const localeInPathName = i18n.locales.find((locale) =>
     pathname.startsWith(`/${locale}`)
   );
@@ -45,7 +52,18 @@ export default async function middleware(req:NextRequest, event:NextFetchEvent) 
         req.url
       )
     );
-  } else if (pathname === `/${locale}`) {
+  } else if (
+    pathname === `/${locale}` ||
+    pathname.includes("items") ||
+    pathname.includes("login")
+  ) {
     return NextResponse.next();
   }
+  const authMiddleware = withAuth({
+    pages: {
+      signIn: `/${locale}/login`,
+    },
+  });
+  // @ts-expect-error
+  return authMiddleware(req, event);
 }

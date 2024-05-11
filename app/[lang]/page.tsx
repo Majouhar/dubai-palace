@@ -47,7 +47,13 @@ export default async function Home({
           <p>{dict["explore-all"]}</p>
         </div>
         <div className={classes.banner}>
-          <Image src={HomeDisplayImage} width={400} height={400} alt="Kerala Women Wearing Abaya" />
+          <div></div>
+          <Image
+            src={HomeDisplayImage}
+            width={400}
+            height={400}
+            alt="Kerala Women Wearing Abaya"
+          />
         </div>
       </div>
       <section className={classes.newArrivals}>
