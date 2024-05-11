@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import { convertPrismaDecimalToNumber } from "./utitlity";
 
 const prisma = new PrismaClient();
 export async function getUser() {
@@ -18,4 +19,26 @@ export async function createDummyUser() {
     },
   });
   console.log("Created user:", user);
+}
+
+export async function getProductByID(itemId: string) {
+  const item = await prisma.items.findUnique({
+    where: {
+      id: itemId,
+    },
+  });
+  return  convertPrismaDecimalToNumber(item);
+}
+
+export async function getProductsofGroups(groupId?: number) {
+  const items = await prisma.items.findMany({
+    where: {
+      group_id: groupId ?? 0, // Filter items with price less than 1000
+    },
+  });
+  return convertPrismaDecimalToNumber(items);
+}
+export async function getAllProducts() {
+  const items = await prisma.items.findMany();
+  return convertPrismaDecimalToNumber(items);
 }

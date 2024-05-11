@@ -18,25 +18,25 @@ export type LocalDict = { [key: string]: string };
 
 export type Item = {
   id: string;
-  groupId: number; //suppose a item having 3 size, we use this
+  group_id: number; //suppose a item having 3 size, we use this
   name: string;
   brand: string;
   description: string;
   price: number;
   tags: string[];
-  size?: string;
+  size: string | null;
   discount: number;
   inventory: number;
   color: string;
   images: string[];
   date: string;
-  features?: string[];
-  orderMultiple?: number;
-  orderQuantity?: number;
+  features: string[] | null;
+  orderMultiple: number | null;
+  orderQuantity: number | null;
 };
 
 export type User = {
-  userId:number;
+  userId: number;
   firstName: string;
   lastName: string;
   email?: string;
@@ -48,7 +48,7 @@ export type User = {
   district?: string;
   cartId: number;
   orders: number[];
-  wishListId:number;
+  wishListId: number;
 };
 export type OrderItem = {
   itemID: string;

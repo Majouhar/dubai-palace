@@ -54,7 +54,11 @@
     flex-direction: column;
 }
 .banner>img{
+    position: absolute;
     border-radius: 50px;
+    width: 700px;
+    height: 550px;
+    z-index: -1;
 }
 .newArrivals{
     margin: 50px 0px;
@@ -85,8 +89,9 @@
         font-size: 30px;
     }
     .banner>img{
+        position: static;
         border-radius: 20%;
-        height: 200px;
+        height: 100%;
         width: 100%;
     }
     .banner{

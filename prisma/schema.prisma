@@ -27,7 +27,7 @@ model items {
   inventory      Int
   color          String        @db.VarChar(255)
   images         String[]
-  date           DateTime      @db.Date
+  date           String        @db.VarChar(255)
   features       String[]
   order_multiple Int?
   order_quantity Int?
@@ -38,20 +38,20 @@ model order_items {
   order_item_id     Int      @id @default(autoincrement())
   item_id           String?  @db.VarChar(255)
   quantity          Int
-  date_added        DateTime @db.Date
+  date_added        String   @db.VarChar(255)
   date_delivered    String?  @db.VarChar(255)
   price_while_order Decimal? @db.Decimal(10, 2)
   items             items?   @relation(fields: [item_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model orders {
-  order_id               Int      @id @default(autoincrement())
+  order_id               Int     @id @default(autoincrement())
   items                  Json
-  status                 String   @db.VarChar(255)
-  date_ordered           DateTime @db.Date
-  shipped_date           String?  @db.VarChar(255)
-  delivered_date         String?  @db.VarChar(255)
-  expected_delivery_date String?  @db.VarChar(255)
+  status                 String  @db.VarChar(255)
+  date_ordered           String  @db.VarChar(255)
+  shipped_date           String? @db.VarChar(255)
+  delivered_date         String? @db.VarChar(255)
+  expected_delivery_date String? @db.VarChar(255)
 }
 
 model users {
@@ -59,7 +59,7 @@ model users {
   first_name    String      @db.VarChar(255)
   last_name     String      @db.VarChar(255)
   email         String?     @db.VarChar(255)
-  mobile        String      @db.VarChar(255) @unique
+  mobile        String      @unique @db.VarChar(255)
   address_line1 String?     @db.VarChar(255)
   address_line2 String?     @db.VarChar(255)
   pincode       String      @db.VarChar(255)

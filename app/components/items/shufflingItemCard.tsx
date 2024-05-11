@@ -1,12 +1,13 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import NewItemCard from "./newItemCard";
-import { itemData as newData, tags } from "@/lib/data";
+import { tags } from "@/lib/data";
 import classes from "./shufflingItem.module.css";
 import Link from "next/link";
 import { useMediaQuery } from "react-responsive";
+import { Item } from "@/app/types/commonTypes";
 
-function ShufflingCards() {
+function ShufflingCards({ newData }: Readonly<{ newData: Item[] }>) {
   const data = newData.filter((d) => d.tags.includes(tags.latest));
   const length = data.length;
   console.log(length);

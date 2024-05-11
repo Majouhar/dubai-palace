@@ -1,13 +1,16 @@
 import React from "react";
 import classes from "./itemDetails.module.css";
-import { itemData } from "@/lib/data";
 import { HeartIcon } from "@heroicons/react/24/outline";
 import ProductImage from "@/app/components/itemDetails/image";
 import Link from "next/link";
+import { getProductByID, getProductsofGroups } from "@/lib/actions";
+import { Item } from "@/app/types/commonTypes";
 
-function ItemDetailsPage({ params }: Readonly<{ params: { itemId: string } }>) {
-  const item = itemData.find((it) => it.id === params.itemId);
-  const groupItems = itemData.filter((it) => it.groupId === item?.groupId);
+async function ItemDetailsPage({
+  params,
+}: Readonly<{ params: { itemId: string } }>) {
+  const item: Item = await getProductByID(params.itemId);
+  const groupItems: Item[] = await getProductsofGroups(item?.group_id);
   return (
     <main>
       <div className={classes.grid}>
@@ -15,7 +18,7 @@ function ItemDetailsPage({ params }: Readonly<{ params: { itemId: string } }>) {
         <div className={classes.itemDetails}>
           <small className={classes.smallTitle}>{item?.brand}</small>
           <h2>{item?.name}</h2>
-          {item?.discount!=undefined  && item?.price !== undefined && (
+          {item?.discount != undefined && item?.price !== undefined && (
             <div className={classes.priceContainer}>
               {item.discount > 0 && (
                 <p className={classes.discount}>₹{item.price}</p>
@@ -24,8 +27,8 @@ function ItemDetailsPage({ params }: Readonly<{ params: { itemId: string } }>) {
             </div>
           )}
           <p>{item?.description}</p>
-          {item?.size!=undefined&& <p>Size: {item?.size}</p>}
-          {item?.color!=undefined&& <p>Color: {item?.color}</p>}
+          {item?.size != undefined && <p>Size: {item?.size}</p>}
+          {item?.color != undefined && <p>Color: {item?.color}</p>}
           {item?.features && (
             <div>
               <h6 className={classes.smallTitle}>Features</h6>

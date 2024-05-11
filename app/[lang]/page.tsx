@@ -3,6 +3,8 @@ import classes from "./home.module.css";
 import { getDictionary } from "@/lib/dictionary";
 import Line from "../components/line";
 import ShufflingCards from "../components/items/shufflingItemCard";
+import { getAllProducts } from "@/lib/actions";
+import HomeDisplayImage from "@/assets/images/HomeBannerImage.png";
 
 export default async function Home({
   params: { lang },
@@ -10,7 +12,7 @@ export default async function Home({
   params: { lang: string };
 }>) {
   const dict = await getDictionary(lang);
-
+  const allData = await getAllProducts();
   return (
     <main>
       <div className={classes.container}>
@@ -45,12 +47,7 @@ export default async function Home({
           <p>{dict["explore-all"]}</p>
         </div>
         <div className={classes.banner}>
-          <Image
-            src={"https://picsum.photos/400/400"}
-            width={400}
-            height={400}
-            alt=""
-          />
+          <Image src={HomeDisplayImage} width={400} height={400} alt="Kerala Women Wearing Abaya" />
         </div>
       </div>
       <section className={classes.newArrivals}>
@@ -59,7 +56,7 @@ export default async function Home({
           <h2>New Arrivals</h2>
           <Line />
         </div>
-        <ShufflingCards />
+        <ShufflingCards newData={allData} />
       </section>
     </main>
   );
