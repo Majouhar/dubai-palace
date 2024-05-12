@@ -3,6 +3,7 @@ import classes from "./itemCard.module.css";
 import Image from "next/image";
 import { Item } from "@/app/types/commonTypes";
 import Link from "next/link";
+import AddToCartButton from "./addToCartButton";
 
 function ItemCard({ item }: Readonly<{ item: Item }>) {
   return (
@@ -18,7 +19,7 @@ function ItemCard({ item }: Readonly<{ item: Item }>) {
           )}
           <p>₹{(item.price * (100 - item.discount)) / 100}</p>
         </div>
-        <button>Add to Cart</button>
+        <AddToCartButton itemId={item.id}/>
       </div>
     </div>
   );

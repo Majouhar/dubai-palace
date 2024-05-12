@@ -4,7 +4,6 @@ import { createUser, getUser } from "@/lib/userActions";
 import { createWishList } from "@/lib/wishListActions";
 import { createCart } from "@/lib/cartActions";
 
-
 export async function POST(request: NextRequest) {
   const data = await request.json();
   const { mobile, password } = data;

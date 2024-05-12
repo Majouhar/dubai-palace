@@ -14,3 +14,8 @@ export const totalPages = atom({
   key: "totalPages",
   default: 1,
 });
+
+export const tempItemAddtoCartStorage = atom<string | null>({
+  key: "tempItemIdforCartAdd",
+  default: null,
+});

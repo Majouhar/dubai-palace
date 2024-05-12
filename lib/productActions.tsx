@@ -4,6 +4,7 @@ import { convertPrismaDecimalToNumber } from "./utitlity";
 
 
 export async function createDummyUser() {
+  
   const user = await prisma.users.create({
     data: {
       first_name: "John",

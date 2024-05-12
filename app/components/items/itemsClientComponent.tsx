@@ -1,18 +1,51 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import classes from "./itemsClientComponent.module.css";
 import ItemCard from "@/app/components/items/itemCard";
 import Pagination from "@/app/components/items/pagination";
-import { useRecoilValue } from "recoil";
-import { pageNumber, searchParams, totalPages } from "@/app/recoil/atoms/atom";
+import { useRecoilState, useRecoilValue } from "recoil";
+import {
+  pageNumber,
+  searchParams,
+  tempItemAddtoCartStorage,
+  totalPages,
+} from "@/app/recoil/atoms/atom";
 import { Item } from "@/app/types/commonTypes";
 import { FaceFrownIcon, FaceSmileIcon } from "@heroicons/react/24/outline";
+import { useSession } from "next-auth/react";
 
 const ITEM_PER_PAGE = 10;
 function ItemClientComponent({ allData }: Readonly<{ allData: Item[] }>) {
   const searchValue = useRecoilValue(searchParams);
   const pageNumberValue = useRecoilValue(pageNumber);
   const totalPagesValue = useRecoilValue(totalPages);
+  const [pendingAddToCart, setPendingAddtoCart] = useRecoilState(
+    tempItemAddtoCartStorage
+  );
+  const { status } = useSession();
+
+  useEffect(() => {
+    if (status === "authenticated" && pendingAddToCart != null) {
+      console.log(pendingAddToCart)
+      fetch("/api/cart", {
+        method: "POST",
+        body: JSON.stringify({
+          itemId:pendingAddToCart,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((data) => {
+          return data.json();
+        })
+        .then((jsonData) => {
+          setPendingAddtoCart(null);
+          console.log(jsonData);
+        })
+        .catch((e) => console.log(e));
+    }
+  }, [pendingAddToCart, setPendingAddtoCart, status]);
   const applyFilter = (val: Item) => {
     const lowerSearchValue = searchValue.trim().toLowerCase();
     return (

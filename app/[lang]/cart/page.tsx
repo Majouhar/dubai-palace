@@ -14,6 +14,7 @@ async function Cart() {
       return itemTemp;
     }
   });
+  console.log(newItems)
   const price = newItems.reduce(
     (sum, item) => sum + (item?.orderQuantity ?? 0) * (item?.price ?? 0),
     0

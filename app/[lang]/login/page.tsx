@@ -141,7 +141,7 @@ const SignInForm = () => {
     });
     if (result && !result.error) {
       const callbackUrl = new URLSearchParams((result.url ?? "").split("?")[1]);
-      router.replace(callbackUrl.get("callbackUrl") ?? "/");
+      router.replace(callbackUrl.get("callbackUrl") ?? "/items");
     }else{
       console.log(result?.error)
     }
