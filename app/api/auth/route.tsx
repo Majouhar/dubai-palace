@@ -1,14 +1,14 @@
-import { NextRequest, NextResponse } from "next/server"
+import { NextRequest, NextResponse } from "next/server";
 import { hashPassword } from "@/lib/auth";
-import { createCart, createUser, createWishList, getUser } from "@/lib/actions";
+import { createUser, getUser } from "@/lib/userActions";
+import { createWishList } from "@/lib/wishListActions";
+import { createCart } from "@/lib/cartActions";
+
 
 export async function POST(request: NextRequest) {
   const data = await request.json();
-  const {
-    mobile,
-    password,
-  } = data;
-  if (!mobile || (mobile.length < 10) || password?.trim()?.length < 7) {
+  const { mobile, password } = data;
+  if (!mobile || mobile.length < 10 || password?.trim()?.length < 7) {
     return NextResponse.json(
       { message: "Invalide Username/Password" },
       { status: 422 }
@@ -26,8 +26,10 @@ export async function POST(request: NextRequest) {
   data.wishListId = await createWishList();
   data.cartId = await createCart();
 
-
   const user = await createUser(data);
 
-  return NextResponse.json({ message: "User Created User" }, { status: 201 });
+  return NextResponse.json(
+    { message: `User Created User for ${user?.mobile}` },
+    { status: 201 }
+  );
 }

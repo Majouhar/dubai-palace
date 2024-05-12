@@ -1,7 +1,7 @@
 import React from "react";
 import classes from "./cartItemCard.module.css";
 import Image from "next/image";
-import { Item, OrderItem } from "@/app/types/commonTypes";
+import { Item } from "@/app/types/commonTypes";
 import Counter from "./counter";
 import { CheckBadgeIcon, TrashIcon } from "@heroicons/react/24/outline";
 
@@ -53,7 +53,7 @@ function CartItemCard({ item }: Readonly<{ item: Item }>) {
         </p>
 
         <div>
-          <Counter value={item.orderQuantity ?? 1} itemId ={item.id} />
+          <Counter value={item.orderQuantity ?? 1} itemId={item.id} />
         </div>
       </div>
     </div>

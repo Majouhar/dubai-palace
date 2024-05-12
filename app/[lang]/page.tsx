@@ -3,7 +3,7 @@ import classes from "./home.module.css";
 import { getDictionary } from "@/lib/dictionary";
 import Line from "../components/line";
 import ShufflingCards from "../components/items/shufflingItemCard";
-import { getAllProducts } from "@/lib/actions";
+import { getAllProducts } from "@/lib/productActions";
 import HomeDisplayImage from "@/assets/images/HomeBannerImage.png";
 
 export default async function Home({

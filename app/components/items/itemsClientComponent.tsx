@@ -13,7 +13,6 @@ function ItemClientComponent({ allData }: Readonly<{ allData: Item[] }>) {
   const searchValue = useRecoilValue(searchParams);
   const pageNumberValue = useRecoilValue(pageNumber);
   const totalPagesValue = useRecoilValue(totalPages);
-  console.log("[debug]", searchValue);
   const applyFilter = (val: Item) => {
     const lowerSearchValue = searchValue.trim().toLowerCase();
     return (

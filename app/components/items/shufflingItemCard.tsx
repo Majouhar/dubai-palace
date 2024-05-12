@@ -6,12 +6,14 @@ import classes from "./shufflingItem.module.css";
 import Link from "next/link";
 import { useMediaQuery } from "react-responsive";
 import { Item } from "@/app/types/commonTypes";
+import { usePathname } from "next/navigation";
 
 function ShufflingCards({ newData }: Readonly<{ newData: Item[] }>) {
   const data = newData.filter((d) => d.tags.includes(tags.latest));
   const length = data.length;
   const [shuffleData, setShuffleData] = useState<number[]>([0, 1, 2, 3, 4]);
   const isMobile = useMediaQuery({ query: "(max-width: 767px)" });
+  const lang = usePathname().split("/")[1];
   useEffect(() => {
     const id = setInterval(() => {
       const newData = shuffleData.map((data) => {
@@ -25,22 +27,22 @@ function ShufflingCards({ newData }: Readonly<{ newData: Item[] }>) {
   }, [length, shuffleData]);
   return (
     <div className={classes.itemContainer}>
-      <Link href={`/items/${data[shuffleData[0]].id}`}>
+      <Link href={`/${lang}/items/${data[shuffleData[0]].id}`}>
         <NewItemCard item={data[shuffleData[0]]} />
       </Link>
-      <Link href={`/items/${data[shuffleData[1]].id}`}>
+      <Link href={`/${lang}/items/${data[shuffleData[1]].id}`}>
         <NewItemCard item={data[shuffleData[1]]} />
       </Link>
-      <Link href={`/items/${data[shuffleData[2]].id}`}>
+      <Link href={`/${lang}/items/${data[shuffleData[2]].id}`}>
         <NewItemCard item={data[shuffleData[2]]} />
       </Link>
       {!isMobile && (
-        <Link href={`/items/${data[shuffleData[3]].id}`}>
+        <Link href={`/${lang}/items/${data[shuffleData[3]].id}`}>
           <NewItemCard item={data[shuffleData[3]]} />
         </Link>
       )}
       {!isMobile && (
-        <Link href={`/items/${data[shuffleData[4]].id}`}>
+        <Link href={`/${lang}/items/${data[shuffleData[4]].id}`}>
           <NewItemCard item={data[shuffleData[4]]} />
         </Link>
       )}

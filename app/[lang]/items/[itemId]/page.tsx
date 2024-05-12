@@ -3,13 +3,17 @@ import classes from "./itemDetails.module.css";
 import { HeartIcon } from "@heroicons/react/24/outline";
 import ProductImage from "@/app/components/itemDetails/image";
 import Link from "next/link";
-import { getProductByID, getProductsofGroups } from "@/lib/actions";
+import { getProductByID, getProductsofGroups } from "@/lib/productActions";
 import { Item } from "@/app/types/commonTypes";
+import { notFound } from "next/navigation";
 
 async function ItemDetailsPage({
   params,
 }: Readonly<{ params: { itemId: string } }>) {
   const item: Item = await getProductByID(params.itemId);
+  if(!item){
+    notFound()
+  }
   const groupItems: Item[] = await getProductsofGroups(item?.group_id);
   return (
     <main>

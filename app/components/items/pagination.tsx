@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import classes from "./pagination.module.css";
 import { useRecoilState } from "recoil";
 import { pageNumber, totalPages } from "@/app/recoil/atoms/atom";
+import { v4 as uuid4 } from "uuid";
 
 function Pagination({
   totalData,
@@ -18,14 +19,15 @@ function Pagination({
   }, [numberOfPages, setTotalPages]);
   return (
     <div className={classes.container}>
-      { Array.from({ length: numberOfPages }).map((_, index) => {
-        const visible = [index+2,index,index+1].includes(pageNumberValue)
-        console.log(visible)
+      {Array.from({ length: numberOfPages }).map((_, index) => {
+        const visible = [index + 2, index, index + 1].includes(pageNumberValue);
         return (
           <div
             onClick={() => setPageNumber(index + 1)}
-            className={`${visible ? classes.paginationBtn:classes.hide} ${index+1===pageNumberValue ? classes.highlight:""}` }
-            key={index}
+            className={`${visible ? classes.paginationBtn : classes.hide} ${
+              index + 1 === pageNumberValue ? classes.highlight : ""
+            }`}
+            key={uuid4()}
           >
             {index + 1}
           </div>
