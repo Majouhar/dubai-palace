@@ -4,9 +4,11 @@ import Image from "next/image";
 import { Item } from "@/app/types/commonTypes";
 import Counter from "./counter";
 import { CheckBadgeIcon, TrashIcon } from "@heroicons/react/24/outline";
+import ButtonContainer from "./buttonContainer";
 
 function CartItemCard({ item }: Readonly<{ item: Item }>) {
   const originalPrice = (item?.orderQuantity ?? 0) * (item?.price ?? 0);
+
   const discountPrice =
     ((item?.orderQuantity ?? 0) *
       (item?.price ?? 0) *
@@ -31,12 +33,7 @@ function CartItemCard({ item }: Readonly<{ item: Item }>) {
             )}
           </div>
           <div className={classes.buttonContainer}>
-            <button>
-              <TrashIcon className="size-4" /> <span>Remove</span>
-            </button>
-            <button>
-              <CheckBadgeIcon className="size-4" /> <span>WishList</span>
-            </button>
+            <ButtonContainer itemId={item.id}/>
           </div>
         </div>
       </div>

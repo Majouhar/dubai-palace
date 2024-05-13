@@ -2,7 +2,6 @@ import { getServerSession } from "next-auth";
 import prisma from "./prismaClient";
 import { OrderItem } from "@/app/types/commonTypes";
 import { getFormattedDateToday } from "./utitlity";
-import { revalidatePath } from "next/cache";
 
 export async function createCart() {
   const cart = await prisma.carts.create({
@@ -12,13 +11,15 @@ export async function createCart() {
   });
   return cart.cart_id;
 }
-
-export async function getCartofUser() {
+export async function getUserId(){
   const userDetails = await getServerSession();
   const userId = userDetails?.user?.image ?? 0;
+  return userId
+}
+export async function getCartofUser(userId:number) {
+ 
 
   const user = await prisma.users.findUnique({
-    // @ts-expect-error
     where: { user_id: userId },
   });
   const cart = await prisma.carts.findUnique({
@@ -29,15 +30,17 @@ export async function getCartofUser() {
   return cart;
 }
 
-export async function getCartItemsOfUser() {
-  const cart = await getCartofUser();
+export async function getCartItemsOfUser(userId:number) {
+  const cart = await getCartofUser(userId);
   // @ts-expect-error
   const cartItems: OrderItem[] = cart?.items;
   return cartItems ?? [];
 }
 
 export async function addItemToCart(itemId: string) {
-  const cart = await getCartofUser();
+  const userId = await getUserId()
+  // @ts-expect-error
+  const cart = await getCartofUser(userId);
   const cartId = cart?.cart_id ?? 0;
   // @ts-expect-error
   const cartItems: OrderItem[] = cart?.items ?? [];
@@ -52,7 +55,7 @@ export async function addItemToCart(itemId: string) {
       quantity: 1,
     });
   }
-  console.log(cartItems)
+  console.log(cartItems);
 
   await prisma.carts.update({
     where: {
@@ -60,6 +63,25 @@ export async function addItemToCart(itemId: string) {
     },
     data: {
       items: cartItems,
+    },
+  });
+  return 201;
+}
+
+export async function removeItemFromCart(itemId: string) {
+  const userId = await getUserId()
+  // @ts-expect-error
+  const cart = await getCartofUser(userId);
+  const cartId = cart?.cart_id ?? 0;
+  // @ts-expect-error
+  const cartItems: OrderItem[] = cart?.items ?? [];
+  const newItems = cartItems.filter((val) => val.itemID !== itemId);
+  await prisma.carts.update({
+    where: {
+      cart_id: cartId,
+    },
+    data: {
+      items: newItems,
     },
   });
   return 201;

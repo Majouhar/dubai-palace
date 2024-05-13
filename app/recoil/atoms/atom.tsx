@@ -1,3 +1,4 @@
+import { OrderItem } from "@/app/types/commonTypes";
 import { atom } from "recoil";
 
 export const searchParams = atom({
@@ -18,4 +19,9 @@ export const totalPages = atom({
 export const tempItemAddtoCartStorage = atom<string | null>({
   key: "tempItemIdforCartAdd",
   default: null,
+});
+
+export const cartItemsState = atom<OrderItem[]>({
+  key: "cartItems",
+  default: [],
 });
