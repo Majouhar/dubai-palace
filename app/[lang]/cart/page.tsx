@@ -1,9 +1,11 @@
+"use server"
 import React from "react";
 import classes from "./cart.module.css";
 import CartItemCard from "@/app/components/cartItemCard/cartItemCard";
 import { getAllProducts } from "@/lib/productActions";
 import { Item } from "@/app/types/commonTypes";
 import { getCartItemsOfUser } from "@/lib/cartActions";
+const revalidate = "force-dynamic";
 async function Cart() {
   const itemData = await getAllProducts();
   const cartItems = await getCartItemsOfUser();
@@ -14,7 +16,7 @@ async function Cart() {
       return itemTemp;
     }
   });
-  console.log(newItems)
+  console.log(newItems);
   const price = newItems.reduce(
     (sum, item) => sum + (item?.orderQuantity ?? 0) * (item?.price ?? 0),
     0

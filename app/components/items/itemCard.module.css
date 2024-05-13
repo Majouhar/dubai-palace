@@ -70,10 +70,8 @@
     }
 
     .priceAction>button {
-        border: 1px solid black;
-        padding: 0px 5px;
-        border-radius: 20px;
-
+        border: 0px;
+        padding: 0px;
     }
 }
 
@@ -82,7 +80,7 @@
     /* CSS for Tablet */
 }
 
-/* Styles for Laptop/Desktop (992px and above) */
-@media only screen and (min-width: 992px) {
+/* Styles for small laptop (992px and above) */
+@media only screen and (min-width: 992px ) and (max-width:1370) {
     /* CSS for Laptop/Desktop */
 }

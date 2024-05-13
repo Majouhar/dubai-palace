@@ -140,7 +140,47 @@
     /* CSS for Tablet */
 }
 
-/* Styles for Laptop/Desktop (992px and above) */
-@media only screen and (min-width: 992px) {
+/* Styles for small laptop (992px and above) */
+@media only screen and (min-width: 992px ) and (max-width:1370px) {
     /* CSS for Laptop/Desktop */
+       /* CSS for Mobile */
+       .container {
+        display: grid;
+        grid-template-columns: 3fr 2fr;
+        padding: 5px 20px;
+    }
+    .title>h1 {
+
+        width: 75%;
+
+    }
+    .banner>img{
+        border-radius: 20%;
+        height: 450px;
+        width: auto;
+
+    }
+    .banner>div{
+        position: absolute;
+        opacity: 0.2;
+        border-radius: 50%;
+        width: 10px;
+        height: 10px;
+        z-index: -1;
+        box-shadow: 0px 0px 120px 120px  var(--COLOR-PRIMARY);
+    }
+    .banner{
+        height: 100%;
+        width: 100%;
+    }
+  
+    .newArrivals{
+        margin: 5px 0px 50px 0px;
+        width: 100%;
+    
+        .head{
+
+            font-size: 30px;
+        }
+    }
 }

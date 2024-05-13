@@ -30,7 +30,7 @@ function ItemClientComponent({ allData }: Readonly<{ allData: Item[] }>) {
       fetch("/api/cart", {
         method: "POST",
         body: JSON.stringify({
-          itemId:pendingAddToCart,
+          itemId:pendingAddToCart,  
         }),
         headers: {
           "Content-Type": "application/json",
