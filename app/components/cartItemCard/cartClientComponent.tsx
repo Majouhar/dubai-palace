@@ -13,8 +13,11 @@ function CartClientComponent({
   const [cartItems, setCartItems] = useRecoilState(cartItemsState);
   console.log(cartItems)
   useEffect(() => {
-    setCartItems(cartItemsServer);
-  }, [cartItemsServer, setCartItems]);
+    if(!cartItems.length){
+      setCartItems(cartItemsServer);
+    }
+   
+  }, [cartItems.length, cartItemsServer, setCartItems]);
   const newItems = cartItems.map((item) => {
     const itemTemp = itemData.find((val: Item) => val.id === item.itemID);
     if (itemTemp) {
@@ -35,7 +38,7 @@ function CartClientComponent({
         100,
     0
   );
-  if (newItems.length > 0) {
+  if (cartItems.length > 0) {
     return (
       <main className={classes.container}>
         <div className={classes.cartItems}>
@@ -69,7 +72,9 @@ function CartClientComponent({
         </div>
       </main>
     );
-  } else {
+  } else if(cartItemsServer.length>0) {
+    return <main className={classes.container}>Loading</main>;
+  }else{
     return <main className={classes.container}>No Items in Cart</main>;
   }
 }
