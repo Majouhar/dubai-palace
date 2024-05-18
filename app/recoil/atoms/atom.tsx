@@ -25,3 +25,8 @@ export const cartItemsState = atom<OrderItem[]>({
   key: "cartItems",
   default: [],
 });
+
+export const isCartCheckedState = atom<boolean>({
+  key: "isCartChecked",
+  default: false,
+});

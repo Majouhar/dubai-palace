@@ -4,21 +4,23 @@ import classes from "./cartClientComponent.module.css";
 import { Item, OrderItem } from "@/app/types/commonTypes";
 import CartItemCard from "./cartItemCard";
 import { useRecoilState } from "recoil";
-import { cartItemsState } from "@/app/recoil/atoms/atom";
+import { cartItemsState, isCartCheckedState } from "@/app/recoil/atoms/atom";
+import Overlay from "../overlay";
+import { ShoppingBagIcon } from "@heroicons/react/24/outline";
+import { FaceFrownIcon } from "@heroicons/react/24/outline";
 
 function CartClientComponent({
   cartItemsServer,
   itemData,
 }: Readonly<{ cartItemsServer: OrderItem[]; itemData: Item[] }>) {
   const [cartItems, setCartItems] = useRecoilState(cartItemsState);
-  const [isCartChecked,setIsCartChecked] = useState(false)
+  const [isCartChecked, setIsCartChecked] = useRecoilState(isCartCheckedState);
   useEffect(() => {
-    if(!cartItems.length){
+    if (!cartItems.length) {
       setCartItems(cartItemsServer);
     }
-    setIsCartChecked(true)
-   
-  }, [cartItems.length, cartItemsServer, setCartItems]);
+    setIsCartChecked(true);
+  }, [cartItems.length, cartItemsServer, setCartItems, setIsCartChecked]);
   const newItems = cartItems.map((item) => {
     const itemTemp = itemData.find((val: Item) => val.id === item.itemID);
     if (itemTemp) {
@@ -73,10 +75,22 @@ function CartClientComponent({
         </div>
       </main>
     );
-  } else if(!isCartChecked && cartItems.length===0) {
-    return <main className={classes.container}>Loading</main>;
-  }else{
-    return <main className={classes.container}>No Items in Cart</main>;
+  } else if (!isCartChecked && cartItems.length === 0) {
+    return (
+      <main className={classes.container}>
+        <Overlay />
+      </main>
+    );
+  } else {
+    return (
+      <main className={classes.noItemsCart}>
+        <div className={classes.iconContainer}>
+          <ShoppingBagIcon className="size-8 bg" />
+          <FaceFrownIcon className="size-8 " />
+        </div>
+        <p className={classes.text}>Empty Cart</p>
+      </main>
+    );
   }
 }
 
