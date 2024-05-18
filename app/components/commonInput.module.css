@@ -1,0 +1,44 @@
+.label {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    align-items: flex-start;
+
+    margin: 10px 20px;
+}
+
+.label>p {
+    font-size: 14px;
+}
+
+.input {
+    padding: 5px 10px;
+    border-radius: 10px;
+    border: 1px solid black;
+
+
+}
+.label span{
+    color: red;
+    font-size: 10px;
+}
+
+@media only screen and (max-width: 767px) {
+    .label{
+        margin: 5px 2px;
+        position: relative;
+    }
+    .label>p {
+        font-size: 12px;
+    }
+    .input{
+        font-size: 14px;
+    }
+    .label span{
+        font-size: 6px;
+        position: absolute;
+        top: 1px;
+    }
+  }
+  

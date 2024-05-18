@@ -13,7 +13,7 @@
   --COLOR-SECONDARY: #000000;
   --COLOR-TERTIARY:#f5dede;
 }
-body{
+body,html{
   height: 100%;
 }
 
@@ -24,13 +24,16 @@ body{
 
 .main-container {
   padding: 20px 150px;
-  margin-bottom: 10px;
+  margin-bottom:10px;
   height: 100%;
+  overflow-y: hidden;
 }
 /* Styles for Mobile (up to 767px) */
 @media only screen and (max-width: 767px) {
   .main-container {
     padding: 10px 10px;
+    overflow-y: scroll;
+  
   }
 }
 

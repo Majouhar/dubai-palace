@@ -3,8 +3,9 @@ import React, { useState } from "react";
 import classes from "./login.module.css";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import CommonInput from "@/app/components/commonInput";
 
-const SignUpForm = () => {
+const SignUpForm = ({ toggleForm }: Readonly<{ toggleForm: () => void }>) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -14,119 +15,123 @@ const SignUpForm = () => {
   const [pincode, setPincode] = useState("");
   const [password, setPassword] = useState("");
   const [district, setDistrict] = useState("");
+  const [cnfPassword, setCnfPassword] = useState("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    fetch("/api/auth", {
-      method: "POST",
-      body: JSON.stringify({
-        mobile,
-        password,
-        firstName,
-        lastName,
-        pincode,
-        district,
-        addressLine1,
-        addressLine2,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((r) => r.json())
-      .then(() => {
-      });
-    // Perform form submission logic here
+    if (password === cnfPassword) {
+      fetch("/api/auth", {
+        method: "POST",
+        body: JSON.stringify({
+          mobile,
+          password,
+          firstName,
+          lastName,
+          pincode,
+          district,
+          addressLine1,
+          addressLine2,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((r) => r.json())
+        .then(() => {});
+    } else {
+      console.log("Password Not Matches");
+    }
   };
 
   return (
-    <div className={classes.flex}>
-      <h2>Sign Up</h2>
-      <form onSubmit={handleSubmit}>
-        <label>
-          First Name:
-          <input
-            type="text"
+    <div className={classes.signUpFlex}>
+      <form className={classes.signUpForm} onSubmit={handleSubmit}>
+        <h2 className={classes.formTitle}>Create Account</h2>
+        <div>
+          <CommonInput
+            handleChange={setFirstName}
+            label="First Name"
+            required
             value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            required
           />
-        </label>
-        <label>
-          Last Name:
-          <input
-            type="text"
+          <CommonInput
+            handleChange={setLastName}
+            label="Last Name"
+            required
             value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-            required
           />
-        </label>
-        <label>
-          Email:
-          <input
+        </div>
+        <div>
+          <CommonInput
+            handleChange={setEmail}
+            label="Email"
             type="email"
+            required={false}
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
           />
-        </label>
-        <label>
-          Mobile:
-          <input
+          <CommonInput
+            handleChange={setMobile}
+            label="Mobile"
+            required
             type="tel"
             value={mobile}
-            onChange={(e) => setMobile(e.target.value)}
-            required
           />
-        </label>
-        <label>
-          Address Line 1:
-          <input
-            type="text"
+        </div>
+        <div>
+          <CommonInput
+            handleChange={setAddressLine1}
+            label="Address Line 1"
             value={addressLine1}
-            onChange={(e) => setAddressLine1(e.target.value)}
           />
-        </label>
-        <label>
-          Address Line 2:
-          <input
-            type="text"
+          <CommonInput
+            handleChange={setAddressLine2}
+            label="Address Line 2"
             value={addressLine2}
-            onChange={(e) => setAddressLine2(e.target.value)}
           />
-        </label>
-        <label>
-          Pincode:
-          <input
-            type="text"
+        </div>
+        <div>
+          <CommonInput
+            handleChange={setPincode}
+            label="Pincode"
             value={pincode}
-            onChange={(e) => setPincode(e.target.value)}
-            required
           />
-        </label>
-        <label>
-          Password:
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </label>
-        <label>
-          District:
-          <input
-            type="text"
+          <CommonInput
+            handleChange={setDistrict}
+            label="District"
             value={district}
-            onChange={(e) => setDistrict(e.target.value)}
+            required
           />
-        </label>
-        <button type="submit">Sign Up</button>
+        </div>
+
+        <div>
+          <CommonInput
+            handleChange={setPassword}
+            label="Password"
+            value={password}
+            type="password"
+            required
+          />
+          <CommonInput
+            handleChange={setPassword}
+            label="Confirm Password"
+            value={password}
+            type="password"
+            required
+          />
+        </div>
+
+        <button className={classes.submitBtn} type="submit">
+          Sign Up
+        </button>
+        <button onClick={toggleForm} className={classes.toggleBtn}>
+          Already Have an Account?
+        </button>
       </form>
     </div>
   );
 };
 
-const SignInForm = () => {
+const SignInForm = ({ toggleForm }: Readonly<{ toggleForm: () => void }>) => {
   const [mobile, setMobile] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
@@ -142,43 +147,51 @@ const SignInForm = () => {
     if (result && !result.error) {
       const callbackUrl = new URLSearchParams((result.url ?? "").split("?")[1]);
       router.replace(callbackUrl.get("callbackUrl") ?? "/items");
-    }else{
-      console.log(result?.error)
+    } else {
+      console.log(result?.error);
     }
   };
   return (
     <div className={classes.flex}>
-      <h2>Sign In</h2>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Mobile:
-          <input
+      <div className={classes.signInFormContainer}>
+        <div></div>
+        <form className={classes.signInForm} onSubmit={handleSubmit}>
+          <h2 className={classes.formTitle}>Welcome Back</h2>
+          <CommonInput
+            handleChange={setMobile}
+            label="Mobile"
+            required
             type="tel"
             value={mobile}
-            onChange={(e) => setMobile(e.target.value)}
-            required
           />
-        </label>
-        <label>
-          Password:
-          <input
-            type="password"
+          <CommonInput
+            handleChange={setPassword}
+            label="Password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            type="password"
             required
           />
-        </label>
-        <button type="submit">Sign In</button>
-      </form>
+          <button className={classes.submitBtn} type="submit">
+            Sign In
+          </button>
+          <button className={classes.toggleBtn} onClick={toggleForm}>
+            {"Don't have an account?"}
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
 
 const Login = () => {
+  const [isSignUp, setIsSignUp] = useState(false);
+  const toggleSignUp = () => {
+    setIsSignUp((prev) => !prev);
+  };
   return (
-    <div>
-      <SignInForm />
-      <SignUpForm />
+    <div className={classes.container}>
+      {!isSignUp && <SignInForm toggleForm={toggleSignUp} />}
+      {isSignUp && <SignUpForm toggleForm={toggleSignUp} />}
     </div>
   );
 };

@@ -14,6 +14,7 @@ function Overlay({
     case OverlayConstants.LOADING:
       mainItem = <Loading />;
       break;
+      
   }
   return (
     <div className={classes.overlay}>
