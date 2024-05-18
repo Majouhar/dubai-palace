@@ -16,11 +16,17 @@ function CartClientComponent({
   const [cartItems, setCartItems] = useRecoilState(cartItemsState);
   const [isCartChecked, setIsCartChecked] = useRecoilState(isCartCheckedState);
   useEffect(() => {
-    if (!cartItems.length) {
+    if (!cartItems.length && !isCartChecked) {
       setCartItems(cartItemsServer);
+      setIsCartChecked(true);
     }
-    setIsCartChecked(true);
-  }, [cartItems.length, cartItemsServer, setCartItems, setIsCartChecked]);
+  }, [
+    cartItems.length,
+    cartItemsServer,
+    isCartChecked,
+    setCartItems,
+    setIsCartChecked,
+  ]);
   const newItems = cartItems.map((item) => {
     const itemTemp = itemData.find((val: Item) => val.id === item.itemID);
     if (itemTemp) {
