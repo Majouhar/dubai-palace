@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import classes from "./cartClientComponent.module.css";
 import { Item, OrderItem } from "@/app/types/commonTypes";
 import CartItemCard from "./cartItemCard";
@@ -11,11 +11,12 @@ function CartClientComponent({
   itemData,
 }: Readonly<{ cartItemsServer: OrderItem[]; itemData: Item[] }>) {
   const [cartItems, setCartItems] = useRecoilState(cartItemsState);
-  console.log(cartItems)
+  const [isCartChecked,setIsCartChecked] = useState(false)
   useEffect(() => {
     if(!cartItems.length){
       setCartItems(cartItemsServer);
     }
+    setIsCartChecked(true)
    
   }, [cartItems.length, cartItemsServer, setCartItems]);
   const newItems = cartItems.map((item) => {
@@ -72,7 +73,7 @@ function CartClientComponent({
         </div>
       </main>
     );
-  } else if(cartItemsServer.length>0) {
+  } else if(!isCartChecked && cartItems.length===0) {
     return <main className={classes.container}>Loading</main>;
   }else{
     return <main className={classes.container}>No Items in Cart</main>;
