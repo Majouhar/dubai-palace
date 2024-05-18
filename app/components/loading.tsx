@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import classes from "./loading.module.css";
 
-function Loading() {
+function Loading({ size = "40px" }: Readonly<{ size?: string }>) {
   const [colorBox, setColorBox] = useState([0, 1, 1, 0]);
   useEffect(() => {
     const intervalID = setInterval(() => {
@@ -14,7 +14,7 @@ function Loading() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
-    <div className={classes.container}>
+    <div style={{ width: size, height: size }} className={`${classes.container} p-1`}>
       <div
         style={{
           backgroundColor:

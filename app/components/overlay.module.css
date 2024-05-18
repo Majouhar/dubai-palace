@@ -12,3 +12,7 @@
     flex-direction: column;
     gap: 10px;
 }
+.overlay>p{
+    color: white;
+
+}

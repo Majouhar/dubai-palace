@@ -9,7 +9,7 @@ async function AllItems() {
 
   return (
     <>
-      <ItemClientComponent allData={products} /><Overlay/>
+      <ItemClientComponent allData={products} />
     </>
   );
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import classes from "./itemCard.module.css";
+import classes from "./itemCard.module.css"
 import Image from "next/image";
 import { Item } from "@/app/types/commonTypes";
 import Link from "next/link";

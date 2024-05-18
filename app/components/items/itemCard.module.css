@@ -39,9 +39,9 @@
 
 .priceAction>button {
     border: 1px solid black;
-    padding: 0px 10px;
+    padding: 1px;
     border-radius: 20px;
-
+    margin-bottom: 10px;
 }
 
 @media only screen and (max-width: 767px) {
@@ -70,8 +70,8 @@
     }
 
     .priceAction>button {
-        border: 0px;
-        padding: 0px;
+ 
+        padding: 0px ;
     }
 }
 

@@ -5,21 +5,32 @@ import {
 } from "@/app/recoil/atoms/atom";
 import { getFormattedDateToday } from "@/lib/utitlity";
 import HttpClient from "@/utility/httpClient";
-import { ShoppingCartIcon } from "@heroicons/react/24/outline";
+import { CheckIcon, ShoppingCartIcon } from "@heroicons/react/24/outline";
 import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { useRecoilState, useRecoilValue } from "recoil";
+import Loading from "../loading";
 
 function AddToCartButton({ itemId }: Readonly<{ itemId: string }>) {
   const { status } = useSession();
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [_, setTempItem] = useRecoilState(tempItemAddtoCartStorage);
   const [__, setCartItems] = useRecoilState(cartItemsState);
   const isMobile = useMediaQuery({ query: "(max-width: 767px)" });
   const lang = usePathname().split("/")[1];
+  const [isSuccessDisplay, setIsSuccessDisplay] = useState(false);
+  useEffect(() => {
+    if (isSuccessDisplay) {
+      setTimeout(() => {
+        setIsSuccessDisplay(false);
+      }, 2000);
+    }
+  }, [isSuccessDisplay]);
   const handleAddToCart = () => {
+    setIsLoading(true);
     if (status === "authenticated") {
       new HttpClient()
         .post("/api/cart", {
@@ -27,8 +38,8 @@ function AddToCartButton({ itemId }: Readonly<{ itemId: string }>) {
           lang,
         })
         .then((data) => {
-          console.log("ADDED");
-
+          setIsLoading(false);
+          setIsSuccessDisplay(true);
           setCartItems((cartItems) => {
             let newCartItems = [...cartItems];
             const existingItem = newCartItems.find(
@@ -56,12 +67,20 @@ function AddToCartButton({ itemId }: Readonly<{ itemId: string }>) {
       router.push("/login");
     }
   };
+  const buttonClassName = `${
+    isMobile ? "size-6" : "size-8"
+  }  border-solid border-transparent rounded-full p-1`;
+  const buttonContent = isSuccessDisplay ? (
+    <CheckIcon className={buttonClassName} />
+  ) : (
+    <ShoppingCartIcon className={buttonClassName} />
+  );
   return (
     <button onClick={handleAddToCart}>
-      {isMobile ? (
-        <ShoppingCartIcon className="size-6 border-2 border-solid border-black rounded-full p-1" />
+      {isLoading ? (
+        <Loading size={isMobile ? "24px" : "32px"} />
       ) : (
-        "Add to Cart"
+        buttonContent
       )}
     </button>
   );
