@@ -26,11 +26,11 @@ function ItemClientComponent({ allData }: Readonly<{ allData: Item[] }>) {
 
   useEffect(() => {
     if (status === "authenticated" && pendingAddToCart != null) {
-      console.log(pendingAddToCart)
+      console.log(pendingAddToCart);
       fetch("/api/cart", {
         method: "POST",
         body: JSON.stringify({
-          itemId:pendingAddToCart,  
+          itemId: pendingAddToCart,
         }),
         headers: {
           "Content-Type": "application/json",
@@ -47,7 +47,10 @@ function ItemClientComponent({ allData }: Readonly<{ allData: Item[] }>) {
     }
   }, [pendingAddToCart, setPendingAddtoCart, status]);
   const applyFilter = (val: Item) => {
-    const lowerSearchValue = searchValue.trim().toLowerCase();
+    const lowerSearchValue = searchValue
+      .trim()
+      .toLowerCase()
+      .replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
     return (
       RegExp(lowerSearchValue).exec(val.brand.toLowerCase()) ||
       RegExp(lowerSearchValue).exec(val.color.toLowerCase()) ||
