@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import classes from "./userSection.module.css";
 import {
   HeartIcon,
@@ -7,18 +7,20 @@ import {
   ShoppingCartIcon,
 } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
+import { useRecoilValue } from "recoil";
+import { cartItemsState } from "@/app/recoil/atoms/atom";
 
 function UserSection() {
-  const [count] = useState(2);
-  const router = useRouter()
+  const cartItems = useRecoilValue(cartItemsState);
+  const router = useRouter();
   const handleWishList = () => {
-    router.push("/wishlist")
+    router.push("/wishlist");
   };
   const handleProfileClick = () => {
-    router.push("/user")
+    router.push("/user");
   };
   const handleCartClick = () => {
-    router.push("/cart")
+    router.push("/cart");
   };
   return (
     <div className={classes.container}>
@@ -31,9 +33,11 @@ function UserSection() {
         onClick={handleCartClick}
         className={`${classes.countBox} cursor-pointer`}
       >
-        <div>
-          <small>{count}</small>
-        </div>
+        {cartItems.length > 0 && (
+          <div onClick={handleCartClick}>
+            <small>{cartItems.length}</small>
+          </div>
+        )}
         <ShoppingCartIcon className="size-8  " />
       </div>
     </div>
