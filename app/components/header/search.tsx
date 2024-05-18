@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import classes from "./search.module.css";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { usePathname, useRouter } from "next/navigation";
-import Overlay from "../overlay";
+import EffectOverlay from "../effectOverlay";
 import { useRecoilState } from "recoil";
 import { pageNumber, searchParams } from "@/app/recoil/atoms/atom";
 
@@ -37,7 +37,7 @@ function Search() {
   }, [isItemsPage, value, setSearch]);
   return (
     <>
-      {isOverlay && <Overlay />}
+      {isOverlay && <EffectOverlay />}
       <div className={classes.container}>
         <div className={classes.icon}>
           <MagnifyingGlassIcon className="size-6 " />
