@@ -1,10 +1,11 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import classes from "./itemsClientComponent.module.css";
 import ItemCard from "@/app/components/items/itemCard";
 import Pagination from "@/app/components/items/pagination";
 import { useRecoilState, useRecoilValue } from "recoil";
 import {
+  cartItemsState,
   pageNumber,
   searchParams,
   tempItemAddtoCartStorage,
@@ -13,6 +14,10 @@ import {
 import { Item } from "@/app/types/commonTypes";
 import { FaceFrownIcon, FaceSmileIcon } from "@heroicons/react/24/outline";
 import { useSession } from "next-auth/react";
+import Overlay from "../overlay";
+import { OverlayConstants } from "@/lib/enums";
+import HttpClient from "@/utility/httpClient";
+import { getFormattedDateToday } from "@/lib/utitlity";
 
 const ITEM_PER_PAGE = 10;
 function ItemClientComponent({ allData }: Readonly<{ allData: Item[] }>) {
@@ -23,29 +28,30 @@ function ItemClientComponent({ allData }: Readonly<{ allData: Item[] }>) {
     tempItemAddtoCartStorage
   );
   const { status } = useSession();
+  const [isOverlay, setIsOverlay] = useState(false);
+  const [cartItems, setCartItems] = useRecoilState(cartItemsState);
 
   useEffect(() => {
     if (status === "authenticated" && pendingAddToCart != null) {
       console.log(pendingAddToCart);
-      fetch("/api/cart", {
-        method: "POST",
-        body: JSON.stringify({
+      new HttpClient()
+        .post("/api/cart", {
           itemId: pendingAddToCart,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-        .then((data) => {
-          return data.json();
         })
         .then((jsonData) => {
           setPendingAddtoCart(null);
-          console.log(jsonData);
+          cartItems.push({
+            itemID: pendingAddToCart,
+            dateAdded: getFormattedDateToday(),
+            quantity: 1,
+          });
+          setCartItems([...cartItems]);
         })
-        .catch((e) => console.log(e));
+        .catch((e) => {
+          setIsOverlay(true);
+        });
     }
-  }, [pendingAddToCart, setPendingAddtoCart, status]);
+  }, [cartItems, pendingAddToCart, setCartItems, setPendingAddtoCart, status]);
   const applyFilter = (val: Item) => {
     const lowerSearchValue = searchValue
       .trim()
@@ -62,40 +68,49 @@ function ItemClientComponent({ allData }: Readonly<{ allData: Item[] }>) {
   const filteredData = allData.filter((val) => applyFilter(val));
 
   return (
-    <main>
-      <div className={classes.searchValue}>
-        {searchValue.trim().length > 0 && <p>Searched For: {searchValue}</p>}
-        {totalPagesValue > 0 && (
-          <p>
-            Page {pageNumberValue} of {totalPagesValue}
-          </p>
+    <>
+      <main>
+        <div className={classes.searchValue}>
+          {searchValue.trim().length > 0 && <p>Searched For: {searchValue}</p>}
+          {totalPagesValue > 0 && (
+            <p>
+              Page {pageNumberValue} of {totalPagesValue}
+            </p>
+          )}
+        </div>
+        {filteredData.length > 0 ? (
+          <div className={classes.itemGrid}>
+            {filteredData
+              .slice(
+                (pageNumberValue - 1) * ITEM_PER_PAGE,
+                pageNumberValue * ITEM_PER_PAGE
+              )
+              .map((value) => (
+                <ItemCard key={value.id} item={value} />
+              ))}
+          </div>
+        ) : (
+          <div className={classes.notFound}>
+            <FaceSmileIcon className={`${classes.hideAnimation} size-10 `} />
+            <FaceFrownIcon className={`${classes.displayAnimation} size-10 `} />
+            <p>No Item Matches with your Search</p>
+          </div>
         )}
-      </div>
-      {filteredData.length > 0 ? (
-        <div className={classes.itemGrid}>
-          {filteredData
-            .slice(
-              (pageNumberValue - 1) * ITEM_PER_PAGE,
-              pageNumberValue * ITEM_PER_PAGE
-            )
-            .map((value) => (
-              <ItemCard key={value.id} item={value} />
-            ))}
+        <div className={classes.pagination}>
+          <Pagination
+            itemsPerPage={ITEM_PER_PAGE}
+            totalData={filteredData.length}
+          />
         </div>
-      ) : (
-        <div className={classes.notFound}>
-          <FaceSmileIcon className={`${classes.hideAnimation} size-10 `} />
-          <FaceFrownIcon className={`${classes.displayAnimation} size-10 `} />
-          <p>No Item Matches with your Search</p>
-        </div>
-      )}
-      <div className={classes.pagination}>
-        <Pagination
-          itemsPerPage={ITEM_PER_PAGE}
-          totalData={filteredData.length}
+      </main>
+      {isOverlay && (
+        <Overlay
+          message="Add to Cart Failed, Please Try again Later"
+          cancelAction={() => setIsOverlay((prev) => !prev)}
+          action={OverlayConstants.ERROR}
         />
-      </div>
-    </main>
+      )}
+    </>
   );
 }
 
