@@ -118,9 +118,9 @@ const SignUpForm = ({ toggleForm }: Readonly<{ toggleForm: () => void }>) => {
             required
           />
           <CommonInput
-            handleChange={setPassword}
+            handleChange={setCnfPassword}
             label="Confirm Password"
-            value={password}
+            value={cnfPassword}
             type="password"
             required
           />
