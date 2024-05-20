@@ -26,7 +26,6 @@ body,html{
   padding: 20px 150px;
   margin-bottom:10px;
   height: 100%;
-  overflow-y: hidden;
 }
 /* Styles for Mobile (up to 767px) */
 @media only screen and (max-width: 767px) {

@@ -11,14 +11,12 @@ export async function createCart() {
   });
   return cart.cart_id;
 }
-export async function getUserId(){
+export async function getUserId() {
   const userDetails = await getServerSession();
   const userId = userDetails?.user?.image ?? 0;
-  return userId
+  return userId;
 }
-export async function getCartofUser(userId:number) {
- 
-
+export async function getCartofUser(userId: number) {
   const user = await prisma.users.findUnique({
     where: { user_id: userId },
   });
@@ -30,7 +28,7 @@ export async function getCartofUser(userId:number) {
   return cart;
 }
 
-export async function getCartItemsOfUser(userId:number) {
+export async function getCartItemsOfUser(userId: number) {
   const cart = await getCartofUser(userId);
   // @ts-expect-error
   const cartItems: OrderItem[] = cart?.items;
@@ -38,7 +36,7 @@ export async function getCartItemsOfUser(userId:number) {
 }
 
 export async function addItemToCart(itemId: string) {
-  const userId = await getUserId()
+  const userId = await getUserId();
   // @ts-expect-error
   const cart = await getCartofUser(userId);
   const cartId = cart?.cart_id ?? 0;
@@ -69,7 +67,6 @@ export async function addItemToCart(itemId: string) {
 }
 
 export async function removeItemFromCart(itemId: string) {
-  const userId = await getUserId()
   // @ts-expect-error
   const cart = await getCartofUser(userId);
   const cartId = cart?.cart_id ?? 0;
@@ -84,5 +81,33 @@ export async function removeItemFromCart(itemId: string) {
       items: newItems,
     },
   });
+  return 201;
+}
+
+export async function updateCartItemsOfUser(
+  userId: number,
+  itemId: string,
+  quantity: number
+) {
+  const cart = await getCartofUser(userId);
+  const cartId = cart?.cart_id ?? 0;
+  // @ts-expect-error
+  const cartItems: OrderItem[] = cart?.items ?? [];
+  const updatedCartItems = cartItems.map((val) => {
+    if(val.itemID === itemId){
+      val.quantity = quantity
+    }
+    return val
+  });
+ 
+  const status = await prisma.carts.update({
+    where: {
+      cart_id: cartId,
+    },
+    data: {
+      items: updatedCartItems,
+    },
+  }); 
+  console.log(updatedCartItems,cartId,status)
   return 201;
 }
