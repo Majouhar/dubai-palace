@@ -8,6 +8,7 @@ function CommonInput({
   type = "text",
   required = false,
   placeholder,
+  isEditable = true,
 }: Readonly<{
   label: string;
   value: string;
@@ -15,6 +16,7 @@ function CommonInput({
   type?: string;
   required?: boolean;
   placeholder?: string;
+  isEditable?: boolean;
 }>) {
   return (
     <label className={classes.label}>
@@ -22,14 +24,23 @@ function CommonInput({
         {label}
         {required && <span>*</span>}
       </p>
-      <input
-        className={classes.input}
-        type={type}
-        value={value}
-        onChange={(e) => handleChange(e.target.value)}
-        required={required}
-        placeholder={placeholder != undefined ? placeholder : label}
-      />
+      {isEditable ? (
+        <input
+          className={classes.input}
+          type={type}
+          value={value}
+          onChange={(e) => handleChange(e.target.value)}
+          required={required}
+          placeholder={placeholder ?? label}
+        />
+      ) : (
+        <input
+        
+          value={value}
+          onChange={() => {}}
+          className={classes.disabledInput}
+        />
+      )}
     </label>
   );
 }

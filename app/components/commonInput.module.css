@@ -19,6 +19,17 @@
 
 
 }
+.disabledInput{
+    padding: 5px 10px;
+    border-radius: 10px;
+    border: 1px solid black;
+    pointer-events: none;
+    caret-color: transparent;
+    background-color: rgb(223, 223, 223);
+}
+.disabledInput:focus,.disabledInput:focus-within{
+   outline: none;
+}
 .label span{
     color: red;
     font-size: 10px;
@@ -32,7 +43,7 @@
     .label>p {
         font-size: 12px;
     }
-    .input{
+    .input,.disabledInput{
         font-size: 14px;
     }
     .label span{

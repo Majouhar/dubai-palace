@@ -1,0 +1,19 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.container>button{
+    padding: 5px 10px;
+    border-radius: 10px;
+}
+.container>button:first-child {
+    background-color: var(--COLOR-TERTIARY);
+    color: var(--COLOR-PRIMARY);
+}
+
+.container>button:last-child {
+    background-color: var(--COLOR-PRIMARY);
+    color: white;
+}
