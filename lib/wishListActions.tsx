@@ -69,3 +69,15 @@ export async function addItemTOWishList(itemId: string) {
     return 409;
   }
 }
+
+export async function findItemsByItemIDs() {
+  const items: string[] = (await getAllItemsInWishList()) ?? [];
+  const itemDetails = await prisma.items.findMany({
+    where: {
+      id: {
+        in: items,
+      },
+    },
+  });
+  return itemDetails;
+}

@@ -1,4 +1,4 @@
-import { OrderItem } from "@/app/types/commonTypes";
+import { Item, OrderItem } from "@/app/types/commonTypes";
 import { atom } from "recoil";
 
 export const searchParams = atom({
@@ -29,4 +29,8 @@ export const cartItemsState = atom<OrderItem[]>({
 export const isCartCheckedState = atom<boolean>({
   key: "isCartChecked",
   default: false,
+});
+export const wishListItems = atom<Item[] | undefined>({
+  key: "wishListItems",
+  default: undefined,
 });
