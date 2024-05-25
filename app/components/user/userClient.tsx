@@ -135,6 +135,7 @@ function UserClient({
           cartId: -1,
           orders: [],
           wishListId: -1,
+          is_admin:false
         }}
         cnfPwd={cnfPassword}
       />

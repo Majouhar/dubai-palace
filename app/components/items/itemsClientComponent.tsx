@@ -40,12 +40,12 @@ function ItemClientComponent({ allData }: Readonly<{ allData: Item[] }>) {
         })
         .then((jsonData) => {
           setPendingAddtoCart(null);
-          cartItems.push({
+          cartItems?.push({
             item_id: pendingAddToCart,
             date_added: getFormattedDateToday(),
             quantity: 1,
           });
-          setCartItems([...cartItems]);
+          setCartItems([...(cartItems ?? [])]);
         })
         .catch((e) => {
           setIsOverlay(true);

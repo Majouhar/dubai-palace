@@ -22,6 +22,7 @@ const authOptions = {
           image: user.user_id,
           email: user.mobile,
           name: user.first_name + " " + user.last_name,
+          
         };
       },
     }),

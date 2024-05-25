@@ -12,11 +12,13 @@ export async function createCart() {
   });
   return cart.cart_id;
 }
+
 export async function getUserId() {
   const userDetails = await getServerSession();
   const userId = userDetails?.user?.image ?? 0;
   return userId;
 }
+
 export async function getCartofUser(userId: number) {
   const user = await prisma.users.findUnique({
     where: { user_id: userId },

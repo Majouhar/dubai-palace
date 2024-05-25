@@ -81,7 +81,7 @@ function IndividualItemButtonContainer({
           setIsLoading(false);
           setIsSuccessDisplay(true);
           setCartItems((cartItems) => {
-            let newCartItems = [...cartItems];
+            let newCartItems = [...(cartItems ?? [])];
             const existingItem = newCartItems.find(
               (item) => item.item_id === itemId
             );
