@@ -10,7 +10,7 @@ import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import Loading from "../loading";
 
 function AddToCartButton({ itemId }: Readonly<{ itemId: string }>) {
@@ -30,8 +30,8 @@ function AddToCartButton({ itemId }: Readonly<{ itemId: string }>) {
     }
   }, [isSuccessDisplay]);
   const handleAddToCart = () => {
-    setIsLoading(true);
-    if (status === "authenticated") {
+    if (status === "authenticated" && !isLoading) {
+      setIsLoading(true);
       new HttpClient()
         .post("/api/cart", {
           itemId,
@@ -62,7 +62,7 @@ function AddToCartButton({ itemId }: Readonly<{ itemId: string }>) {
             return newCartItems;
           });
         });
-    } else {
+    } else if (!isLoading) {
       setTempItem(itemId);
       router.push("/login");
     }

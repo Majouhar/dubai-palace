@@ -1,0 +1,82 @@
+.success {
+    background-color: var(--COLOR-TERTIARY) !important;
+    color: black !important;
+    border: 1px solid var(--COLOR-PRIMARY) !important;
+    cursor: not-allowed;
+}
+
+.loading {
+    opacity: 0.5 !important;
+    cursor: not-allowed;
+}
+
+.wishListLoading {
+    animation: shake 1s infinite
+}
+.wishListLoadingAdded {
+    animation: shake 2s infinite;
+    color: var(--COLOR-PRIMARY);
+}
+
+.wishListSuccess {
+    animation: backgroundSwap 1s forwards;
+}
+
+.wishListNormal {
+    color: var(--COLOR-PRIMARY);
+}
+
+.wishListRemoveSuccess {
+    animation: backgroundSwapReverse 1s forwards;
+}
+
+.colorPrimary {
+    color: var(--COLOR-PRIMARY);
+}
+
+@keyframes shake {
+    0% {
+        transform: scale(0.1)
+    }
+
+    50% {
+        transform: scale(1)
+    }
+
+    100% {
+        transform: scale(0.1)
+    }
+}
+
+@keyframes backgroundSwap {
+    0% {
+        transform: scale(1);
+        color: white;
+    }
+
+    50% {
+        transform: scale(2);
+    }
+
+    100% {
+        transform: scale(1);
+        color: var(--COLOR-PRIMARY);
+    }
+}
+
+@keyframes backgroundSwapReverse {
+    0% {
+        transform: scale(1);
+        color: var(--COLOR-PRIMARY);
+    }
+
+    50% {
+        transform: scale(2);
+    }
+
+    100% {
+        transform: scale(1);
+        color: white;
+
+    }
+}

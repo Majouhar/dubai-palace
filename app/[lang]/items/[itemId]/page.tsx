@@ -1,18 +1,18 @@
 import React from "react";
 import classes from "./itemDetails.module.css";
-import { HeartIcon } from "@heroicons/react/24/outline";
 import ProductImage from "@/app/components/itemDetails/image";
 import Link from "next/link";
 import { getProductByID, getProductsofGroups } from "@/lib/productActions";
 import { Item } from "@/app/types/commonTypes";
 import { notFound } from "next/navigation";
+import IndividualItemButtonContainer from "@/app/components/items/individualAddtoCartButton";
 
 async function ItemDetailsPage({
   params,
-}: Readonly<{ params: { itemId: string } }>) {
+}: Readonly<{ params: { itemId: string; lang: string } }>) {
   const item: Item = await getProductByID(params.itemId);
-  if(!item){
-    notFound()
+  if (!item) {
+    notFound();
   }
   const groupItems: Item[] = await getProductsofGroups(item?.group_id);
   return (
@@ -75,8 +75,10 @@ async function ItemDetailsPage({
             </div>
           </div>
           <div className={classes.checkout}>
-            <HeartIcon className="size-8" />
-            <button>Add to Cart</button>
+            <IndividualItemButtonContainer
+              itemId={item.id}
+              lang={params.lang}
+            />
           </div>
         </div>
       </div>

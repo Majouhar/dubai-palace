@@ -55,6 +55,27 @@ class HttpClient {
     }
   }
 
+  async delete<T>(
+    url: string,
+    data: any = {},
+    config: RequestInit = {}
+  ): Promise<T> {
+    try {
+      const response = await fetch(url, {
+        method: "DELETE",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+          ...config.headers,
+        },
+        ...config,
+      });
+      return await response.json();
+    } catch (error) {
+      console.error("HTTP POST request failed:", error);
+      throw error;
+    }
+  }
   // Add other HTTP methods as needed
 }
 
