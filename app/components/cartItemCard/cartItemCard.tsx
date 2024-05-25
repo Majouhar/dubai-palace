@@ -3,7 +3,6 @@ import classes from "./cartItemCard.module.css";
 import Image from "next/image";
 import { Item } from "@/app/types/commonTypes";
 import Counter from "./counter";
-import { CheckBadgeIcon, TrashIcon } from "@heroicons/react/24/outline";
 import ButtonContainer from "./buttonContainer";
 
 function CartItemCard({ item }: Readonly<{ item: Item }>) {

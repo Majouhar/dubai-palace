@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import classes from "./login.module.css";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -144,9 +144,16 @@ const SignInForm = ({ toggleForm }: Readonly<{ toggleForm: () => void }>) => {
   const [__, setIsCartChecked] = useRecoilState(isCartCheckedState);
   const [overlayMessage, setOverlayMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
 
   const router = useRouter();
 
+  useEffect(() => {
+    if (formRef?.current) {
+      const headerContainer = document.getElementById("header")?.clientHeight ?? 0
+      formRef.current.style.height = `${window.innerHeight - headerContainer }px`;
+    }
+  }, []);
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
@@ -178,7 +185,11 @@ const SignInForm = ({ toggleForm }: Readonly<{ toggleForm: () => void }>) => {
       <div className={classes.flex}>
         <div className={classes.signInFormContainer}>
           <div></div>
-          <form className={classes.signInForm} onSubmit={handleSubmit}>
+          <form
+            ref={formRef}
+            className={classes.signInForm}
+            onSubmit={handleSubmit}
+          >
             <h2 className={classes.formTitle}>Welcome Back</h2>
             <CommonInput
               handleChange={setMobile}

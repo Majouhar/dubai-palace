@@ -15,6 +15,7 @@ function UserPageButtons({
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSignout = async () => {
+    setIsLoading(true);
     await signOut();
   };
   const handleUserUpdate = () => {

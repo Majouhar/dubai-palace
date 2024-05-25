@@ -1,13 +1,12 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect} from "react";
 import classes from "./cartClientComponent.module.css";
 import { Item, OrderItem } from "@/app/types/commonTypes";
 import CartItemCard from "./cartItemCard";
 import { useRecoilState } from "recoil";
 import { cartItemsState, isCartCheckedState } from "@/app/recoil/atoms/atom";
 import Overlay from "../overlay";
-import { ShoppingBagIcon } from "@heroicons/react/24/outline";
-import { FaceFrownIcon } from "@heroicons/react/24/outline";
+import { ShoppingBagIcon,FaceFrownIcon  } from "@heroicons/react/24/outline";
 
 function CartClientComponent({
   cartItemsServer,

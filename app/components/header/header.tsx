@@ -9,11 +9,11 @@ import Search from "./search";
 async function Header({ language }: Readonly<{ language: string }>) {
   const dictionary = await getDictionary(language);
   return (
-    <div className={classes.container}>
+    <div id="header" className={classes.container}>
       <div className={classes.headerContainer}>
         <Logo />
         <DropdownSection dictionary={dictionary} />
-        <Search/>
+        <Search />
         <UserSection />
       </div>
       <div className={classes.headerLine}></div>

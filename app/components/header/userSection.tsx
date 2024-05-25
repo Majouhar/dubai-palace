@@ -2,9 +2,9 @@
 import React from "react";
 import classes from "./userSection.module.css";
 import {
-  HeartIcon,
   UserIcon,
   ShoppingCartIcon,
+  ListBulletIcon,
 } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
 import { useRecoilValue } from "recoil";
@@ -13,8 +13,8 @@ import { cartItemsState } from "@/app/recoil/atoms/atom";
 function UserSection() {
   const cartItems = useRecoilValue(cartItemsState);
   const router = useRouter();
-  const handleWishList = () => {
-    router.push("/wishlist");
+  const handleOrders = () => {
+    router.push("/orders");
   };
   const handleProfileClick = () => {
     router.push("/user");
@@ -24,7 +24,7 @@ function UserSection() {
   };
   return (
     <div className={classes.container}>
-      <HeartIcon onClick={handleWishList} className="size-8  cursor-pointer" />
+      <ListBulletIcon onClick={handleOrders} className="size-8  cursor-pointer" />
       <UserIcon
         onClick={handleProfileClick}
         className="size-8  cursor-pointer"

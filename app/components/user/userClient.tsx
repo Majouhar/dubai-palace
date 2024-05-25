@@ -5,6 +5,7 @@ import classes from "./userClient.module.css";
 
 import React, { useState } from "react";
 import UserPageButtons from "./userPageButtons";
+import { useRouter } from "next/navigation";
 
 function UserClient({
   first_name,
@@ -37,9 +38,14 @@ function UserClient({
   const [password, setPassword] = useState("");
   const [district, setDistrict] = useState(serverDistrict);
   const [cnfPassword, setCnfPassword] = useState("");
+  const router = useRouter();
+  const handleWishList = () => {
+    router.push("/wishlist");
+  };
   return (
     <>
       <div className={classes.container}>
+        <button onClick={handleWishList}>WishList</button>
         <div>
           <CommonInput
             handleChange={setFirstName}
@@ -125,13 +131,12 @@ function UserClient({
           pincode,
           password,
           district,
-          userId:-1,
-          cartId:-1,
-          orders:[],
-          wishListId:-1
-
+          userId: -1,
+          cartId: -1,
+          orders: [],
+          wishListId: -1,
         }}
-        cnfPwd ={cnfPassword}
+        cnfPwd={cnfPassword}
       />
     </>
   );
