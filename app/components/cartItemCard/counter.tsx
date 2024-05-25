@@ -17,8 +17,8 @@ function Counter({
   useEffect(() => {
     valueRef.current = counter;
     setCartItems((prev) => {
-      const copyPrev: OrderItem[] = prev.map((item) => ({ ...item }));
-      const item = copyPrev.find((val) => val.itemID == itemId);
+      const copyPrev: OrderItem[] = prev?.map((item) => ({ ...item })) ?? [];
+      const item = copyPrev.find((val) => val.item_id == itemId);
       if (item) {
         item.quantity = counter;
       }

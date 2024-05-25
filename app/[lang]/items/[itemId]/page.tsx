@@ -77,6 +77,7 @@ async function ItemDetailsPage({
           <div className={classes.checkout}>
             <IndividualItemButtonContainer
               itemId={item.id}
+              price={(item.price * (100 - item.discount)) / 100}
               lang={params.lang}
             />
           </div>

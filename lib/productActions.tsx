@@ -1,10 +1,8 @@
+import { Item } from "@/app/types/commonTypes";
 import prisma from "./prismaClient";
 import { convertPrismaDecimalToNumber } from "./utitlity";
 
-
-
 export async function createDummyUser() {
-  
   const user = await prisma.users.create({
     data: {
       first_name: "John",
@@ -38,3 +36,33 @@ export async function getAllProducts() {
   return convertPrismaDecimalToNumber(items);
 }
 
+export async function getProductsByIDs(itemIDs: string[]) {
+  const itemDetails = await prisma.items.findMany({
+    where: {
+      id: {
+        in: itemIDs,
+      },
+    },
+  });
+  return itemDetails;
+}
+export async function getPriceOfProduct(itemID: string) {
+  console.log('====================================');
+  console.log(itemID);
+  console.log('====================================');
+  const itemPricing = await prisma.items.findFirst({
+    where: {
+      id: itemID,
+    },
+    select: {
+      discount: true,
+      price: true,
+    },
+  });
+
+  return (
+    ((itemPricing?.price?.toNumber() ?? 0) *
+      (100 - (itemPricing?.discount?.toNumber() ?? 0))) /
+    100
+  );
+}

@@ -41,8 +41,8 @@ function ItemClientComponent({ allData }: Readonly<{ allData: Item[] }>) {
         .then((jsonData) => {
           setPendingAddtoCart(null);
           cartItems.push({
-            itemID: pendingAddToCart,
-            dateAdded: getFormattedDateToday(),
+            item_id: pendingAddToCart,
+            date_added: getFormattedDateToday(),
             quantity: 1,
           });
           setCartItems([...cartItems]);

@@ -24,7 +24,10 @@ function UserSection() {
   };
   return (
     <div className={classes.container}>
-      <ListBulletIcon onClick={handleOrders} className="size-8  cursor-pointer" />
+      <ListBulletIcon
+        onClick={handleOrders}
+        className="size-8  cursor-pointer"
+      />
       <UserIcon
         onClick={handleProfileClick}
         className="size-8  cursor-pointer"
@@ -33,7 +36,7 @@ function UserSection() {
         onClick={handleCartClick}
         className={`${classes.countBox} cursor-pointer`}
       >
-        {cartItems.length > 0 && (
+        {cartItems && cartItems.length > 0 && (
           <div onClick={handleCartClick}>
             <small>{cartItems.length}</small>
           </div>

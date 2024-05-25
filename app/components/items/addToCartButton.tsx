@@ -13,7 +13,10 @@ import { useMediaQuery } from "react-responsive";
 import { useRecoilState } from "recoil";
 import Loading from "../loading";
 
-function AddToCartButton({ itemId }: Readonly<{ itemId: string }>) {
+function AddToCartButton({
+  itemId,
+  price,
+}: Readonly<{ itemId: string; price: number }>) {
   const { status } = useSession();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -41,22 +44,23 @@ function AddToCartButton({ itemId }: Readonly<{ itemId: string }>) {
           setIsLoading(false);
           setIsSuccessDisplay(true);
           setCartItems((cartItems) => {
-            let newCartItems = [...cartItems];
+            let newCartItems = [...(cartItems ?? [])];
             const existingItem = newCartItems.find(
-              (item) => item.itemID === itemId
+              (item) => item.item_id === itemId
             );
             if (existingItem) {
               newCartItems = newCartItems.map((item) => {
-                if (item.itemID === itemId) {
+                if (item.item_id === itemId) {
                   return { ...item, quantity: item.quantity + 1 };
                 }
                 return item;
               });
             } else {
               newCartItems.push({
-                itemID: itemId,
+                item_id: itemId,
                 quantity: 1,
-                dateAdded: getFormattedDateToday(),
+                date_added: getFormattedDateToday(),
+                price_while_order: price,
               });
             }
             return newCartItems;

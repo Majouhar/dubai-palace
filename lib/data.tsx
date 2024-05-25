@@ -12,13 +12,13 @@ export const tags = {
 
 export const orderItem: OrderItem[] = [
   {
-    itemID: slugify("Skinny Umberlla Pardha Blue XL",{lower:true}),
-    dateAdded: "02/05/2025",
+    item_id: slugify("Skinny Umberlla Pardha Blue XL",{lower:true}),
+    date_added: "02/05/2025",
     quantity: 2,
   },
   {
-    itemID: slugify("Skinny Umberlla Pardha Black Large",{lower:true}),
-    dateAdded: "02/02/2025",
+    item_id: slugify("Skinny Umberlla Pardha Black Large",{lower:true}),
+    date_added: "02/02/2025",
     quantity: 1,
   },
 ];

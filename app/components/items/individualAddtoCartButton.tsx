@@ -15,8 +15,9 @@ import { getFormattedDateToday } from "@/lib/utitlity";
 
 function IndividualItemButtonContainer({
   itemId,
+  price,
   lang,
-}: Readonly<{ itemId: string; lang: string }>) {
+}: Readonly<{ itemId: string; lang: string; price: number }>) {
   const [isLoading, setIsLoading] = useState(false);
   const [wishListStatus, setWishListStatus] = useState<
     | "loading"
@@ -82,20 +83,21 @@ function IndividualItemButtonContainer({
           setCartItems((cartItems) => {
             let newCartItems = [...cartItems];
             const existingItem = newCartItems.find(
-              (item) => item.itemID === itemId
+              (item) => item.item_id === itemId
             );
             if (existingItem) {
               newCartItems = newCartItems.map((item) => {
-                if (item.itemID === itemId) {
+                if (item.item_id === itemId) {
                   return { ...item, quantity: item.quantity + 1 };
                 }
                 return item;
               });
             } else {
               newCartItems.push({
-                itemID: itemId,
+                item_id: itemId,
                 quantity: 1,
-                dateAdded: getFormattedDateToday(),
+                date_added: getFormattedDateToday(),
+                price_while_order: price,
               });
             }
             return newCartItems;

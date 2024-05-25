@@ -52,6 +52,7 @@ model orders {
   shipped_date           String? @db.VarChar(255)
   delivered_date         String? @db.VarChar(255)
   expected_delivery_date String? @db.VarChar(255)
+  price                  Int
 }
 
 model users {
@@ -71,6 +72,7 @@ model users {
   returns       Int[]
   carts         carts?      @relation(fields: [cart_id], references: [cart_id], onDelete: NoAction, onUpdate: NoAction)
   wish_lists    wish_lists? @relation(fields: [wish_list_id], references: [wish_list_id], onDelete: NoAction, onUpdate: NoAction)
+  is_admin      Boolean     @default(false)
 }
 
 model wish_lists {

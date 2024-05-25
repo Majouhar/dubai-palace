@@ -2,6 +2,7 @@ import { getServerSession } from "next-auth";
 import prisma from "./prismaClient";
 import { OrderItem } from "@/app/types/commonTypes";
 import { getFormattedDateToday } from "./utitlity";
+import { getPriceOfProduct } from "./productActions";
 
 export async function createCart() {
   const cart = await prisma.carts.create({
@@ -30,30 +31,52 @@ export async function getCartofUser(userId: number) {
 
 export async function getCartItemsOfUser(userId: number) {
   const cart = await getCartofUser(userId);
-  // @ts-expect-error
-  const cartItems: OrderItem[] = cart?.items;
+  //@ts-expect-error
+  const cartItems: OrderItem[] = await updatePriceOfItemsInCart( cart?.cart_id ?? -1,cart?.items);
   return cartItems ?? [];
+}
+
+export async function updatePriceOfItemsInCart(
+  cartID: number,
+  cartItems: OrderItem[]
+) {
+  const priceUpdateItem = await Promise.all(
+    cartItems.map(async (item) => {
+      item.price_while_order = await getPriceOfProduct(item.item_id);
+      return item;
+    })
+  );
+  const updatedCart = await prisma.carts.update({
+    where: {
+      cart_id: cartID,
+    },
+    data: {
+      items: priceUpdateItem,
+    },
+  });
+  return updatedCart.items;
 }
 
 export async function addItemToCart(itemId: string) {
   const userId = await getUserId();
+  const price = await getPriceOfProduct(itemId);
   // @ts-expect-error
   const cart = await getCartofUser(userId);
   const cartId = cart?.cart_id ?? 0;
   // @ts-expect-error
   const cartItems: OrderItem[] = cart?.items ?? [];
-  const existingItem = cartItems.find((item) => item.itemID === itemId);
+  const existingItem = cartItems.find((item) => item.item_id === itemId);
   if (existingItem) {
     existingItem.quantity += 1;
   } else {
     const date = getFormattedDateToday();
     cartItems.push({
-      dateAdded: date,
-      itemID: itemId,
+      date_added: date,
+      item_id: itemId,
       quantity: 1,
+      price_while_order: price,
     });
   }
-  console.log(cartItems);
 
   await prisma.carts.update({
     where: {
@@ -67,12 +90,13 @@ export async function addItemToCart(itemId: string) {
 }
 
 export async function removeItemFromCart(itemId: string) {
+  const userId = await getUserId();
   // @ts-expect-error
   const cart = await getCartofUser(userId);
   const cartId = cart?.cart_id ?? 0;
   // @ts-expect-error
   const cartItems: OrderItem[] = cart?.items ?? [];
-  const newItems = cartItems.filter((val) => val.itemID !== itemId);
+  const newItems = cartItems.filter((val) => val.item_id !== itemId);
   await prisma.carts.update({
     where: {
       cart_id: cartId,
@@ -94,12 +118,12 @@ export async function updateCartItemsOfUser(
   // @ts-expect-error
   const cartItems: OrderItem[] = cart?.items ?? [];
   const updatedCartItems = cartItems.map((val) => {
-    if(val.itemID === itemId){
-      val.quantity = quantity
+    if (val.item_id === itemId) {
+      val.quantity = quantity;
     }
-    return val
+    return val;
   });
- 
+
   const status = await prisma.carts.update({
     where: {
       cart_id: cartId,
@@ -107,7 +131,6 @@ export async function updateCartItemsOfUser(
     data: {
       items: updatedCartItems,
     },
-  }); 
-  console.log(updatedCartItems,cartId,status)
+  });
   return 201;
 }

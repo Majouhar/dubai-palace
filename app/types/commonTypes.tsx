@@ -49,11 +49,14 @@ export type User = {
   cartId: number;
   orders: number[];
   wishListId: number;
+  is_admin: boolean;
 };
 export type OrderItem = {
-  itemID: string;
+  item_id: string;
   quantity: number;
-  dateAdded: string;
+  date_added: string;
+  date_delivered?: string;
+  price_while_order?: number;
 };
 export type Cart = {
   cartId: number;
@@ -64,6 +67,7 @@ export type Order = {
   orderId: string;
   status: string;
   dateOrdered: string;
+  price: number;
 };
 
 export type WishList = {

@@ -1,52 +1,50 @@
 "use client";
-import React, { useEffect} from "react";
+import React, { useEffect } from "react";
 import classes from "./cartClientComponent.module.css";
 import { Item, OrderItem } from "@/app/types/commonTypes";
 import CartItemCard from "./cartItemCard";
 import { useRecoilState } from "recoil";
 import { cartItemsState, isCartCheckedState } from "@/app/recoil/atoms/atom";
 import Overlay from "../overlay";
-import { ShoppingBagIcon,FaceFrownIcon  } from "@heroicons/react/24/outline";
+import { ShoppingBagIcon, FaceFrownIcon } from "@heroicons/react/24/outline";
 
 function CartClientComponent({
   cartItemsServer,
   itemData,
 }: Readonly<{ cartItemsServer: OrderItem[]; itemData: Item[] }>) {
   const [cartItems, setCartItems] = useRecoilState(cartItemsState);
-  const [isCartChecked, setIsCartChecked] = useRecoilState(isCartCheckedState);
   useEffect(() => {
-    if (!cartItems.length && !isCartChecked) {
+    if (cartItems == undefined) {
       setCartItems(cartItemsServer);
-      setIsCartChecked(true);
     }
-  }, [
-    cartItems.length,
-    cartItemsServer,
-    isCartChecked,
-    setCartItems,
-    setIsCartChecked,
-  ]);
-  const newItems = cartItems.map((item) => {
-    const itemTemp = itemData.find((val: Item) => val.id === item.itemID);
-    if (itemTemp) {
-      itemTemp.orderQuantity = item.quantity;
-      return itemTemp;
-    }
-  });
-  const price = newItems.reduce(
-    (sum, item) => sum + (item?.orderQuantity ?? 0) * (item?.price ?? 0),
-    0
-  );
-  const discountPrice = newItems.reduce(
-    (sum, item) =>
-      sum +
-      ((item?.orderQuantity ?? 0) *
-        (item?.price ?? 0) *
-        (100 - (item?.discount ?? 0))) /
-        100,
-    0
-  );
-  if (cartItems.length > 0) {
+  }, [cartItems, cartItemsServer, setCartItems]);
+  const handleCheckout = () => {};
+  console.log(cartItems)
+  const newItems =
+    cartItems?.map((item) => {
+    
+      const itemTemp = itemData.find((val: Item) => val.id === item.item_id);
+      if (itemTemp) {
+        itemTemp.orderQuantity = item.quantity;
+        return itemTemp;
+      }
+    }) ?? [];
+  const price =
+    newItems?.reduce(
+      (sum, item) => sum + (item?.orderQuantity ?? 0) * (item?.price ?? 0),
+      0
+    ) ?? 0;
+  const discountPrice =
+    newItems?.reduce(
+      (sum, item) =>
+        sum +
+        ((item?.orderQuantity ?? 0) *
+          (item?.price ?? 0) *
+          (100 - (item?.discount ?? 0))) /
+          100,
+      0
+    ) ?? 0;
+  if (cartItems && cartItems?.length > 0) {
     return (
       <main className={classes.container}>
         <div className={classes.cartItems}>
@@ -75,12 +73,12 @@ function CartClientComponent({
               <span>Total</span> <span>₹{discountPrice + 10}</span>
             </p>
 
-            <button>Checkout</button>
+            <button onClick={handleCheckout}>Checkout</button>
           </div>
         </div>
       </main>
     );
-  } else if (!isCartChecked && cartItems.length === 0) {
+  } else if (cartItems == undefined) {
     return (
       <main className={classes.container}>
         <Overlay />

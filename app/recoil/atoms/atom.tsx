@@ -21,9 +21,9 @@ export const tempItemAddtoCartStorage = atom<string | null>({
   default: null,
 });
 
-export const cartItemsState = atom<OrderItem[]>({
+export const cartItemsState = atom<OrderItem[] | undefined>({
   key: "cartItems",
-  default: [],
+  default: undefined,
 });
 
 export const isCartCheckedState = atom<boolean>({

@@ -1,4 +1,5 @@
 import prisma from "./prismaClient";
+import { getProductsByIDs } from "./productActions";
 import { getUserDetails } from "./userActions";
 
 export async function createWishList() {
@@ -70,14 +71,7 @@ export async function addItemTOWishList(itemId: string) {
   }
 }
 
-export async function findItemsByItemIDs() {
+export async function getWishListItems() {
   const items: string[] = (await getAllItemsInWishList()) ?? [];
-  const itemDetails = await prisma.items.findMany({
-    where: {
-      id: {
-        in: items,
-      },
-    },
-  });
-  return itemDetails;
+  return await getProductsByIDs(items);
 }

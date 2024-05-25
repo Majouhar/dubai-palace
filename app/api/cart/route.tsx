@@ -20,7 +20,6 @@ export async function GET() {
   const userId = await getUserId()
   // @ts-expect-error
   const cartItems = await getCartItemsOfUser(userId);
-
   return NextResponse.json( cartItems );
 }
 
