@@ -21,13 +21,17 @@ const authOptions = {
         return {
           image: user.user_id,
           email: user.mobile,
-          name: user.first_name + " " + user.last_name,
-          
+          name: {
+            firstName: user.first_name,
+            lastName: user.last_name,
+            cartId: user.cart_id,
+            wishListId: user.wish_list_id,
+            isAdmin:user.is_admin,
+          },
         };
       },
     }),
   ],
-
 
   secret: process.env.NEXTAUTH_SECRET,
 };

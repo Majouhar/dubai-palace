@@ -1,13 +1,11 @@
-import { OrderItem } from "@/app/types/commonTypes";
 import prisma from "./prismaClient";
 import { getFormattedDateToday } from "./utitlity";
-import { getCartItemsOfUser, getUserId } from "./cartActions";
-import { getProductsByIDs } from "./productActions";
+import { getCartItemsOfUser} from "./cartActions";
+import { getCartId } from "./userActions";
 
 export async function createOrder() {
-  const userId = await getUserId();
-  //@ts-expect-error
-  const orderItems = await getCartItemsOfUser(userId);
+  const cartId = await getCartId()
+  const orderItems = await getCartItemsOfUser(cartId);
 
   const price = orderItems.reduce(
     (sum, val) => sum + (val.price_while_order ?? 0),

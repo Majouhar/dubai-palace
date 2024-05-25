@@ -28,6 +28,30 @@ export async function getUser(phone: string) {
   const user = await prisma.users.findFirst({ where: { mobile: phone } });
   return user;
 }
+export async function getUserId() {
+  const userDetails = await getServerSession();
+  const userId = userDetails?.user?.image ?? 0;
+  return userId;
+}
+export async function getCartId() {
+  const userDetails = await getServerSession();
+  //@ts-expect-error
+  const cartId: number = userDetails?.user?.name?.cartId ?? 0;
+  return cartId;
+}
+export async function getWishListId() {
+  const userDetails = await getServerSession();
+  //@ts-expect-error
+  const wishListID: number = userDetails?.user?.name?.wishListId ?? 0;
+  return wishListID;
+}
+
+export async function isAdmin() {
+  const userDetails = await getServerSession();
+  //@ts-expect-error
+  const isAdminAccess: boolean = userDetails?.user?.name?.isAdmin ?? false;
+  return isAdminAccess;
+}
 export async function getUserDetails() {
   const session = await getServerSession();
   const mobile = session?.user?.email;
@@ -40,7 +64,7 @@ export async function updateUser(mobile: string, details: any) {
   if (details.pasword) {
     hashPwd = await hashPassword(details.password);
   }
-  console.log(["DEBUG"],hashPwd)
+  console.log(["DEBUG"], hashPwd);
   await prisma.users.update({
     where: { mobile: mobile },
     data: {

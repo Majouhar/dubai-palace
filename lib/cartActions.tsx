@@ -1,8 +1,8 @@
-import { getServerSession } from "next-auth";
 import prisma from "./prismaClient";
 import { OrderItem } from "@/app/types/commonTypes";
 import { getFormattedDateToday } from "./utitlity";
 import { getPriceOfProduct } from "./productActions";
+import { getCartId, getUserId } from "./userActions";
 
 export async function createCart() {
   const cart = await prisma.carts.create({
@@ -13,28 +13,31 @@ export async function createCart() {
   return cart.cart_id;
 }
 
-export async function getUserId() {
-  const userDetails = await getServerSession();
-  const userId = userDetails?.user?.image ?? 0;
-  return userId;
-}
-
-export async function getCartofUser(userId: number) {
-  const user = await prisma.users.findUnique({
-    where: { user_id: userId },
-  });
+export async function getCartofUser() {
+  const cartId = await getCartId();
   const cart = await prisma.carts.findUnique({
     where: {
-      cart_id: user?.cart_id ?? 0,
+      cart_id: cartId ?? 0,
     },
   });
   return cart;
 }
 
-export async function getCartItemsOfUser(userId: number) {
-  const cart = await getCartofUser(userId);
+export async function getCartItemsOfUser(cartId: number) {
+  const cart = await prisma.carts.findUnique({
+    where: {
+      cart_id: cartId ?? 0,
+    },
+  });
+  console.log("=d===================================");
+  console.log(cartId);
+  console.log("====================================");
   //@ts-expect-error
-  const cartItems: OrderItem[] = await updatePriceOfItemsInCart( cart?.cart_id ?? -1,cart?.items);
+  const cartItems: OrderItem[] = await updatePriceOfItemsInCart(
+    cart?.cart_id ?? -1,
+    //@ts-expect-error
+    cart?.items
+  );
   return cartItems ?? [];
 }
 
@@ -42,6 +45,7 @@ export async function updatePriceOfItemsInCart(
   cartID: number,
   cartItems: OrderItem[]
 ) {
+
   const priceUpdateItem = await Promise.all(
     cartItems.map(async (item) => {
       item.price_while_order = await getPriceOfProduct(item.item_id);
@@ -60,11 +64,9 @@ export async function updatePriceOfItemsInCart(
 }
 
 export async function addItemToCart(itemId: string) {
-  const userId = await getUserId();
   const price = await getPriceOfProduct(itemId);
-  // @ts-expect-error
-  const cart = await getCartofUser(userId);
-  const cartId = cart?.cart_id ?? 0;
+  const cart = await getCartofUser();
+  const cartId = cart?.cart_id ?? -1;
   // @ts-expect-error
   const cartItems: OrderItem[] = cart?.items ?? [];
   const existingItem = cartItems.find((item) => item.item_id === itemId);
@@ -92,9 +94,7 @@ export async function addItemToCart(itemId: string) {
 }
 
 export async function removeItemFromCart(itemId: string) {
-  const userId = await getUserId();
-  // @ts-expect-error
-  const cart = await getCartofUser(userId);
+  const cart = await getCartofUser();
   const cartId = cart?.cart_id ?? 0;
   // @ts-expect-error
   const cartItems: OrderItem[] = cart?.items ?? [];
@@ -115,7 +115,7 @@ export async function updateCartItemsOfUser(
   itemId: string,
   quantity: number
 ) {
-  const cart = await getCartofUser(userId);
+  const cart = await getCartofUser();
   const cartId = cart?.cart_id ?? 0;
   // @ts-expect-error
   const cartItems: OrderItem[] = cart?.items ?? [];

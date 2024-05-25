@@ -1,15 +1,19 @@
 "use server";
-import { addItemToCart, getCartItemsOfUser, getUserId } from "@/lib/cartActions";
+import {
+  addItemToCart,
+  getCartItemsOfUser,
+} from "@/lib/cartActions";
+import { getCartId } from "@/lib/userActions";
 import { revalidateTag } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
   const data = await request.json();
-  const { itemId} = data;
+  const { itemId } = data;
 
   const status = await addItemToCart(itemId);
-  
-  revalidateTag("cartItems")
+
+  revalidateTag("cartItems");
 
   return NextResponse.json(
     { message: `Item Added to cart`, isAuth: true },
@@ -17,9 +21,7 @@ export async function POST(request: NextRequest) {
   );
 }
 export async function GET() {
-  const userId = await getUserId()
-  // @ts-expect-error
-  const cartItems = await getCartItemsOfUser(userId);
-  return NextResponse.json( cartItems );
+  const cartId = await getCartId();
+  const cartItems = await getCartItemsOfUser(cartId);
+  return NextResponse.json(cartItems);
 }
-

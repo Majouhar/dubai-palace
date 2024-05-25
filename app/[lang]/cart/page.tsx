@@ -1,17 +1,24 @@
 import React from "react";
 import { getAllProducts } from "@/lib/productActions";
-import { getCartItemsOfUser, getUserId } from "@/lib/cartActions";
+import { getCartItemsOfUser } from "@/lib/cartActions";
 import CartClientComponent from "@/app/components/cartItemCard/cartClientComponent";
 import { unstable_cache } from "next/cache";
+import { getServerSession } from "next-auth";
+import { getCartId } from "@/lib/userActions";
 const cachedCartItems = unstable_cache(
-  async (userId) => getCartItemsOfUser(userId),
+  async (cartId) => getCartItemsOfUser(cartId),
   ["cart-items"],
   { tags: ["cartItems"] }
 );
 async function Cart() {
   const itemData = await getAllProducts();
-  const userId = await getUserId();
-  const cartItems = await cachedCartItems(userId);
+  const cartId = await getCartId();
+  console.log('====================================');
+  console.log(cartId);
+  console.log('====================================');
+  const cartItems = await cachedCartItems(cartId);
+  const userSessions = await getServerSession();
+  console.log(userSessions?.user);
 
   return (
     <CartClientComponent itemData={itemData} cartItemsServer={cartItems} />

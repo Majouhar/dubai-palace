@@ -1,4 +1,5 @@
-import { getUserId, updateCartItemsOfUser } from "@/lib/cartActions";
+import { updateCartItemsOfUser } from "@/lib/cartActions";
+import { getUserId } from "@/lib/userActions";
 import { revalidateTag } from "next/cache";
 import { NextResponse, NextRequest } from "next/server";
 export async function PUT(
@@ -8,7 +9,7 @@ export async function PUT(
   const userId = await getUserId();
   const data = await request.json();
   const { quantity } = data;
-  // @ts-expect-error
+  //@ts-expect-error
   await updateCartItemsOfUser(userId, itemId, quantity);
   revalidateTag("cartItems")
   return NextResponse.json({ message: "Success" });

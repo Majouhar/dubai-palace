@@ -47,9 +47,6 @@ export async function getProductsByIDs(itemIDs: string[]) {
   return itemDetails;
 }
 export async function getPriceOfProduct(itemID: string) {
-  console.log('====================================');
-  console.log(itemID);
-  console.log('====================================');
   const itemPricing = await prisma.items.findFirst({
     where: {
       id: itemID,
