@@ -4,9 +4,10 @@ import { NextRequest, NextResponse } from "next/server";
 export async function GET(
   request: NextRequest,
   {
-    searchParams: { status },
-  }: { searchParams: { status: "ordered" | "shipped" | "delivered" } }
+    params: { status },
+  }: { params: { status: "ordered" | "shipped" | "delivered" } }
 ) {
+  console.log(status)
   const orders = await getFilteredOrders(status);
   return NextResponse.json(orders);
 }
