@@ -4,7 +4,6 @@ import React from "react";
 
 async function WishList() {
   const items = await getWishListItems()
-  //@ts-expect-error
   return <WishListCardClient serverItem={items}/>
 }
 

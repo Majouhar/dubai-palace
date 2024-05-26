@@ -64,7 +64,6 @@ export async function updateUser(mobile: string, details: any) {
   if (details.pasword) {
     hashPwd = await hashPassword(details.password);
   }
-  console.log(["DEBUG"], hashPwd);
   await prisma.users.update({
     where: { mobile: mobile },
     data: {

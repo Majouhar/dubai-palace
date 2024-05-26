@@ -30,7 +30,7 @@ export const isCartCheckedState = atom<boolean>({
   key: "isCartChecked",
   default: false,
 });
-export const wishListItems = atom<Item[] | undefined>({
+export const wishListItemsState = atom<Item[] | undefined>({
   key: "wishListItems",
   default: undefined,
 });

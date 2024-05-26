@@ -53,6 +53,7 @@ model orders {
   delivered_date         String? @db.VarChar(255)
   expected_delivery_date String? @db.VarChar(255)
   price                  Int
+  user_id                Int
 }
 
 model users {
@@ -87,4 +88,5 @@ model returns {
   status                 String  @db.VarChar(255)
   date_returned          String? @db.VarChar(255)
   expected_date_returned String  @db.VarChar(255)
+  user_id                Int
 }

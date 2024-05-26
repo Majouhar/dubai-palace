@@ -2,7 +2,7 @@ import prisma from "./prismaClient";
 import { OrderItem } from "@/app/types/commonTypes";
 import { getFormattedDateToday } from "./utitlity";
 import { getPriceOfProduct } from "./productActions";
-import { getCartId, getUserId } from "./userActions";
+import { getCartId } from "./userActions";
 
 export async function createCart() {
   const cart = await prisma.carts.create({
@@ -29,9 +29,6 @@ export async function getCartItemsOfUser(cartId: number) {
       cart_id: cartId ?? 0,
     },
   });
-  console.log("=d===================================");
-  console.log(cartId);
-  console.log("====================================");
   //@ts-expect-error
   const cartItems: OrderItem[] = await updatePriceOfItemsInCart(
     cart?.cart_id ?? -1,
@@ -126,7 +123,7 @@ export async function updateCartItemsOfUser(
     return val;
   });
 
-  const status = await prisma.carts.update({
+  await prisma.carts.update({
     where: {
       cart_id: cartId,
     },

@@ -1,0 +1,99 @@
+.card {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    gap: 10px;
+    box-shadow: 5px 5px 10px 10px var(--COLOR-TERTIARY);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.card>a>img {
+    width: 120px;
+    height: 140px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.card>div {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 300px;
+}
+
+.itemName {
+    font-size: 16px;
+
+}
+
+.discount {
+    text-decoration: line-through;
+    opacity: 0.5;
+}
+
+.priceAction {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    font-size: 14px;
+    justify-content: space-between;
+}
+
+.priceAction>div {
+    display: flex;
+    gap: 5px;
+}
+
+.priceAction>button {
+    border: 1px solid black;
+    padding: 1px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+}
+
+@media only screen and (max-width: 767px) {
+
+    /* CSS for Mobile */
+    .card>a>img {
+        width: 60px;
+        height: 70px;
+        cursor: pointer;
+    }
+
+    .card>div {
+
+        width: 180px;
+    }
+
+    .itemName {
+        margin-top: 5px;
+        font-size: 12px;
+        max-width: 140px;
+    }
+
+    .priceAction {
+        padding: 0px 3px;
+        font-size: 10px;
+    }
+
+    .priceAction>div {
+        display: flex;
+        gap: 5px;
+    }
+
+    .priceAction>button {
+
+        padding: 0px;
+    }
+}
+
+/* Styles for Tablet (768px to 991px) */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    /* CSS for Tablet */
+}
+
+/* Styles for small laptop (992px and above) */
+@media only screen and (min-width: 992px) and (max-width:1370) {
+    /* CSS for Laptop/Desktop */
+}

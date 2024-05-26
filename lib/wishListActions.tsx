@@ -1,6 +1,7 @@
 import prisma from "./prismaClient";
 import { getProductsByIDs } from "./productActions";
 import { getUserDetails, getWishListId } from "./userActions";
+import { convertPrismaDecimalToNumber } from "./utitlity";
 
 export async function createWishList() {
   const wishList = await prisma.wish_lists.create({
@@ -12,7 +13,7 @@ export async function createWishList() {
 }
 
 export async function getWishListOfUser() {
-  const wishListID = await getWishListId()
+  const wishListID = await getWishListId();
   const wishList = await prisma.wish_lists.findUnique({
     where: {
       wish_list_id: wishListID ?? -1,
@@ -72,5 +73,6 @@ export async function addItemTOWishList(itemId: string) {
 
 export async function getWishListItems() {
   const items: string[] = (await getAllItemsInWishList()) ?? [];
-  return await getProductsByIDs(items);
+  const itemDetails = await getProductsByIDs(items);
+  return convertPrismaDecimalToNumber(itemDetails);
 }
