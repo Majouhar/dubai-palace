@@ -99,7 +99,7 @@ export async function getAllOrdersofUser() {
       },
     });
   } else {
-    return {};
+    return [];
   }
 }
 

@@ -31,8 +31,8 @@ export type Item = {
   images: string[];
   date: string;
   features: string[] | null;
-  orderMultiple: number | null;
-  orderQuantity: number | null;
+  order_multiple: number | null;
+  order_quantity: number | null;
 };
 
 export type User = {
@@ -64,9 +64,9 @@ export type Cart = {
 };
 export type Order = {
   items: OrderItem[];
-  orderId: string;
+  order_id: number;
   status: string;
-  dateOrdered: string;
+  date_ordered: string;
   price: number;
 };
 

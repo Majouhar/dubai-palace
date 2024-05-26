@@ -6,10 +6,10 @@ import Counter from "./counter";
 import ButtonContainer from "./buttonContainer";
 
 function CartItemCard({ item }: Readonly<{ item: Item }>) {
-  const originalPrice = (item?.orderQuantity ?? 0) * (item?.price ?? 0);
+  const originalPrice = (item?.order_quantity ?? 0) * (item?.price ?? 0);
 
   const discountPrice =
-    ((item?.orderQuantity ?? 0) *
+    ((item?.order_quantity ?? 0) *
       (item?.price ?? 0) *
       (100 - (item?.discount ?? 0))) /
     100;
@@ -49,7 +49,7 @@ function CartItemCard({ item }: Readonly<{ item: Item }>) {
         </p>
 
         <div>
-          <Counter value={item.orderQuantity ?? 1} itemId={item.id} />
+          <Counter value={item.order_quantity ?? 1} itemId={item.id} />
         </div>
       </div>
     </div>

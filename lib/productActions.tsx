@@ -1,3 +1,4 @@
+import { Item } from "@/app/types/commonTypes";
 import prisma from "./prismaClient";
 import { convertPrismaDecimalToNumber } from "./utitlity";
 
@@ -61,4 +62,35 @@ export async function getPriceOfProduct(itemID: string) {
       (100 - (itemPricing?.discount?.toNumber() ?? 0))) /
     100
   );
+}
+
+export async function createProduct(item: Item) {
+  const itemCreated = await prisma.items.create({
+    //@ts-expect-error
+    data: {
+      ...item,
+    },
+  });
+  return 201;
+}
+export async function updateProduct(itemData: Item) {
+  const itemID = itemData.id;
+  const item = await getProductByID(itemID);
+  await prisma.items.update({
+    where: {
+      id: itemID,
+    },
+    data: {
+      ...item,
+      ...itemData,
+    },
+  });
+  return 201;
+}
+export async function deleteProduct(itemID: string) {
+  await prisma.items.delete({
+    where: {
+      id: itemID,
+    },
+  });
 }

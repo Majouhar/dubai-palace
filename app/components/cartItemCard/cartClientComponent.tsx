@@ -25,20 +25,20 @@ function CartClientComponent({
     
       const itemTemp = itemData.find((val: Item) => val.id === item.item_id);
       if (itemTemp) {
-        itemTemp.orderQuantity = item.quantity;
+        itemTemp.order_quantity = item.quantity;
         return itemTemp;
       }
     }) ?? [];
   const price =
     newItems?.reduce(
-      (sum, item) => sum + (item?.orderQuantity ?? 0) * (item?.price ?? 0),
+      (sum, item) => sum + (item?.order_quantity ?? 0) * (item?.price ?? 0),
       0
     ) ?? 0;
   const discountPrice =
     newItems?.reduce(
       (sum, item) =>
         sum +
-        ((item?.orderQuantity ?? 0) *
+        ((item?.order_quantity ?? 0) *
           (item?.price ?? 0) *
           (100 - (item?.discount ?? 0))) /
           100,
