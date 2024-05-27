@@ -52,7 +52,7 @@ const order: Order = {
   order_id: 1000,
   date_ordered: "26/12/2024",
   items: [orderItem1, orderItem2],
-  price: 1520,
+  price: 2440,
   status: "ordered",
   shipped_date: "",
   delivered_date: "",

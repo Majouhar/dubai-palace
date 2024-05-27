@@ -68,6 +68,25 @@
 .itemQty {
     margin-left: 16px;
 }
+.iconContainer{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    margin-top: 5px;
+    background-color: var(--COLOR-TERTIARY);
+    color: var(--COLOR-PRIMARY);
+    font-size: 15px;
+    padding: 3px;
+}
+
+.icon{
+    font-size: 10px;
+    height: 25px;
+    width: 25px;
+ 
+}
 
 /* Styles for Mobile (up to 767px) */
 @media only screen and (max-width: 767px) {

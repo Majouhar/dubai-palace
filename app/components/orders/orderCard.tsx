@@ -62,14 +62,18 @@ function OrderCard({ order }: Readonly<{ order: Order }>) {
       {/* @ts-expect-error */}
       <OrderTracking currentStatus={orderStatusMap[order.status]} />
       <div
-        className={styles.loading}
+        className={styles.iconContainer}
         onClick={() => setIsDisplayItems((prev) => !prev)}
       >
-        {isDisplayItems ? (
-          <ChevronUpIcon className="size-8" />
-        ) : (
-          <ChevronDownIcon className="size-8" />
-        )}
+        <p>{order.items.length} Items</p>
+        <div>
+          {isDisplayItems ? (
+            <ChevronUpIcon className={styles.icon} />
+          ) : (
+            <ChevronDownIcon className={styles.icon} />
+          )}
+        </div>
+        <p>₹{order.price} </p>
       </div>
       {isDisplayItems && (
         <div className={styles.items}>
