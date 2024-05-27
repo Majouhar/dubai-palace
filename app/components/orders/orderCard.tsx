@@ -8,27 +8,32 @@ import { v4 } from "uuid";
 import OrderTracking from "./orderTracking";
 import HttpClient from "@/utility/httpClient";
 import Loading from "../loading";
+import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
 
 function OrderCard({ order }: Readonly<{ order: Order }>) {
   const [mergedItems, setMergedItems] = useState<(OrderItem & Item)[] | null>(
     null
   );
-  const [isDisplayItems, setIsDisplayItems] = useState(true);
+  const [isDisplayItems, setIsDisplayItems] = useState(false);
   useEffect(() => {
-    new HttpClient()
-      .get<Item[]>(
-        `/api/items/${order.items.map((item) => item.item_id).join("/")}`
-      )
-      .then((items) => {
-        setMergedItems(
-          //@ts-expect-error
-          items.map((item: Item) => {
-            const orderItem = order.items.find((it) => it.item_id === item.id);
-            return { ...item, ...(orderItem ?? {}) };
-          })
-        );
-      });
-  }, [order.items]);
+    if (!mergedItems && isDisplayItems) {
+      new HttpClient()
+        .get<Item[]>(
+          `/api/items/${order.items.map((item) => item.item_id).join("/")}`
+        )
+        .then((items) => {
+          setMergedItems(
+            //@ts-expect-error
+            items.map((item: Item) => {
+              const orderItem = order.items.find(
+                (it) => it.item_id === item.id
+              );
+              return { ...item, ...(orderItem ?? {}) };
+            })
+          );
+        });
+    }
+  }, [isDisplayItems, mergedItems, order.items]);
   const orderStatusMap = {
     ordered: 1,
     shipped: 2,
@@ -36,10 +41,7 @@ function OrderCard({ order }: Readonly<{ order: Order }>) {
   };
 
   return (
-    <div
-      onClick={() => setIsDisplayItems((prev) => !prev)}
-      className={styles.container}
-    >
+    <div className={styles.container}>
       <div className={styles.header}>
         <div>
           <span className={styles.orderIdLabel}> Order ID:</span>{" "}
@@ -59,6 +61,16 @@ function OrderCard({ order }: Readonly<{ order: Order }>) {
       </div>
       {/* @ts-expect-error */}
       <OrderTracking currentStatus={orderStatusMap[order.status]} />
+      <div
+        className={styles.loading}
+        onClick={() => setIsDisplayItems((prev) => !prev)}
+      >
+        {isDisplayItems ? (
+          <ChevronUpIcon className="size-8" />
+        ) : (
+          <ChevronDownIcon className="size-8" />
+        )}
+      </div>
       {isDisplayItems && (
         <div className={styles.items}>
           {mergedItems ? (
