@@ -68,6 +68,10 @@ export type Order = {
   status: string;
   date_ordered: string;
   price: number;
+  shipped_date: string;
+  delivered_date: string;
+  expected_delivery_date: string;
+  user_id: number;
 };
 
 export type WishList = {

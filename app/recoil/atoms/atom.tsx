@@ -54,8 +54,12 @@ const order: Order = {
   items: [orderItem1, orderItem2],
   price: 1520,
   status: "ordered",
+  shipped_date: "",
+  delivered_date: "",
+  expected_delivery_date: "28/12/2024",
+  user_id: 1
 };
 export const orderItemState = atom<Order[] | undefined>({
   key: "orderList",
-  default: [order],
+  default: [order,order],
 });

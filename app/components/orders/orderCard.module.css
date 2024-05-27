@@ -1,0 +1,155 @@
+.container {
+    width: 500px;
+    border: 1px solid #e0e0e0;
+    padding: 16px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.orderId {
+    font-weight: bold;
+}
+
+.loading{
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.orderInfo {
+    margin-bottom: 16px;
+}
+.orderInfo >div:first-child{
+    font-size: 14px;
+}
+
+.delivery {
+    color: var(--COLOR-PRIMARY);
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.items {
+    border-top: 1px solid #e0e0e0;
+    padding-top: 16px;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.itemImage {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    margin-right: 16px;
+}
+
+.itemName {
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.itemPrice {
+    margin-left: auto;
+    font-weight: bold;
+}
+
+.itemQty {
+    margin-left: 16px;
+}
+
+/* Styles for Mobile (up to 767px) */
+@media only screen and (max-width: 767px) {
+    .container {
+        width: 300px;
+        border: 1px solid #e0e0e0;
+        padding: 8px;
+    }
+    .header {
+        margin-bottom: 8px;
+    }
+    .orderIdLabel{
+        font-size: 8px;
+    }
+    .orderId {
+        font-size: 10px;
+        font-weight: bold;
+    }
+    
+    
+    
+    
+    .orderInfo {
+        margin-bottom: 8px;
+        font-size: 8px;
+    }
+    .orderInfo >div:first-child{
+        font-size: 7px;
+    }
+    
+    .delivery {
+        color: var(--COLOR-PRIMARY);
+        font-weight: bold;
+        font-size: 7px;
+    }
+    
+    .items {
+        border-top: 1px solid #e0e0e0;
+        padding-top: 8px;
+    }
+    
+    .item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 8px;
+    }
+    
+    .itemImage {
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+        margin-right: 8px;
+    }
+    
+    .itemName {
+        font-weight: bold;
+        margin-bottom: 4px;
+        font-size: 9px;
+    }
+    
+    .itemPrice {
+       font-size: 8px;
+    }
+    
+    .itemQty {
+        margin-left: 8px;
+        font-size: 8px;
+    }
+    .attributes{
+        font-size: 8px;
+    }
+    
+  }
+  
+  /* Styles for Tablet (768px to 991px) */
+  @media only screen and (min-width: 768px) and (max-width: 991px) {
+    /* CSS for Tablet */
+  }
+  
+  /* Styles for Laptop/Desktop (992px and above) */
+  @media only screen and (min-width: 992px ) and (max-width:1370px) {
+    /* CSS for Laptop/Desktop */
+   
+  }
+  

@@ -1,7 +1,7 @@
 "use client";
-import { orderItemState, wishListItemsState } from "@/app/recoil/atoms/atom";
-import { Item, Order } from "@/app/types/commonTypes";
-import React, { useEffect, useState } from "react";
+import { orderItemState } from "@/app/recoil/atoms/atom";
+import {  Order } from "@/app/types/commonTypes";
+import React, { useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { v4 as uuidv4 } from "uuid";
 import Overlay from "../overlay";

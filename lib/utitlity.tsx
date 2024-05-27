@@ -21,9 +21,28 @@ export function convertPrismaDecimalToNumber(obj: any): any {
 
 export function getFormattedDateToday(): string {
   const today = new Date();
-  const day = today.getDate().toString().padStart(2, '0');
-  const month = (today.getMonth() + 1).toString().padStart(2, '0');
+  const day = today.getDate().toString().padStart(2, "0");
+  const month = (today.getMonth() + 1).toString().padStart(2, "0");
   const year = today.getFullYear();
   return `${day}/${month}/${year}`;
 }
 
+export function convertDate(date: string): string {
+  const monthMap = {
+    "01": "Jan",
+    "02": "Feb",
+    "03": "Mar",
+    "04": "Apr",
+    "05": "May",
+    "06": "Jun",
+    "07": "Jul",
+    "08": "Aug",
+    "09": "Sep",
+    "10": "Oct",
+    "11": "Nov",
+    "12": "Dec",
+  };
+  const [day, month, year] = date.split("/");
+  //@ts-expect-error
+  return `${monthMap[month]} ${day}, ${year}`;
+}

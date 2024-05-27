@@ -1,0 +1,68 @@
+.trackingContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.trackingLabelContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.trackingLabelContainer>span:nth-child(2){
+    transform: translateX(5px);
+}
+
+.status {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.circle {
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--COLOR-PRIMARY);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+}
+
+
+
+.bar {
+    height: 4px;
+    flex-grow: 1;
+    border: 1px solid var(--COLOR-PRIMARY);
+}
+.none {
+    height: 2px;
+    flex-grow: 1;
+   
+}
+
+.label {
+    margin-top: 8px;
+    font-size: 12px;
+    color: var(--COLOR-PRIMARY);
+}
+
+.completed .circle {
+    background-color: var(--COLOR-PRIMARY);
+    color: white;
+}
+
+.pending .circle {
+    background-color: white;
+}
+
+.completed.bar {
+    background-color: var(--COLOR-PRIMARY);
+}
+
+.pending .bar {
+    background-color: lightgray;
+}
