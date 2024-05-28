@@ -7,9 +7,9 @@ import { createCart } from "@/lib/cartActions";
 export async function POST(request: NextRequest) {
   const data = await request.json();
   const { mobile, password } = data;
-  if (!mobile || mobile.length < 10 || password?.trim()?.length < 7) {
+  if (!mobile || mobile.length != 10 || password?.trim()?.length < 7) {
     return NextResponse.json(
-      { message: "Invalide Username/Password" },
+      { message: "Enter 10 digit Mobile & password >= 8" },
       { status: 422 }
     );
   }
@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
   const user = await createUser(data);
 
   return NextResponse.json(
-    { message: `User Created User for ${user?.mobile}` },
+    { message: `User Created User for ${user?.mobile}`, status: 200 },
     { status: 201 }
   );
 }

@@ -22,13 +22,15 @@ const SignUpForm = ({ toggleForm }: Readonly<{ toggleForm: () => void }>) => {
   const [password, setPassword] = useState("");
   const [district, setDistrict] = useState("");
   const [cnfPassword, setCnfPassword] = useState("");
+  const [overlayMessage, setOverlayMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsLoading(true);
     if (password === cnfPassword) {
-      fetch("/api/auth", {
-        method: "POST",
-        body: JSON.stringify({
+      new HttpClient()
+        .post("/api/auth", {
           mobile,
           password,
           firstName,
@@ -37,103 +39,121 @@ const SignUpForm = ({ toggleForm }: Readonly<{ toggleForm: () => void }>) => {
           district,
           addressLine1,
           addressLine2,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-        .then((r) => r.json())
-        .then(() => {});
+        })
+        .then((response: any) => {
+          if (response?.status == 200) {
+            toggleForm();
+          } else {
+            setIsLoading(false);
+            setOverlayMessage(response?.message);
+          }
+        })
+        .catch((e) => {
+          setIsLoading(false);
+          console.log(e);
+          setOverlayMessage(e);
+        });
     } else {
-      console.log("Password Not Matches");
+      setIsLoading(false);
+      setOverlayMessage("Password Not Matches");
     }
   };
 
   return (
-    <div className={classes.signUpFlex}>
-      <form className={classes.signUpForm} onSubmit={handleSubmit}>
-        <h2 className={classes.formTitle}>Create Account</h2>
-        <div>
-          <CommonInput
-            handleChange={setFirstName}
-            label="First Name"
-            required
-            value={firstName}
-          />
-          <CommonInput
-            handleChange={setLastName}
-            label="Last Name"
-            required
-            value={lastName}
-          />
-        </div>
-        <div>
-          <CommonInput
-            handleChange={setEmail}
-            label="Email"
-            type="email"
-            required={false}
-            value={email}
-          />
-          <CommonInput
-            handleChange={setMobile}
-            label="Mobile"
-            required
-            type="tel"
-            value={mobile}
-          />
-        </div>
-        <div>
-          <CommonInput
-            handleChange={setAddressLine1}
-            label="Address Line 1"
-            value={addressLine1}
-          />
-          <CommonInput
-            handleChange={setAddressLine2}
-            label="Address Line 2"
-            value={addressLine2}
-          />
-        </div>
-        <div>
-          <CommonInput
-            handleChange={setPincode}
-            label="Pincode"
-            value={pincode}
-          />
-          <CommonInput
-            handleChange={setDistrict}
-            label="District"
-            value={district}
-            required
-          />
-        </div>
+    <>
+      <div className={classes.signUpFlex}>
+        <form className={classes.signUpForm} onSubmit={handleSubmit}>
+          <h2 className={classes.formTitle}>Create Account</h2>
+          <div>
+            <CommonInput
+              handleChange={setFirstName}
+              label="First Name"
+              required
+              value={firstName}
+            />
+            <CommonInput
+              handleChange={setLastName}
+              label="Last Name"
+              required
+              value={lastName}
+            />
+          </div>
+          <div>
+            <CommonInput
+              handleChange={setEmail}
+              label="Email"
+              type="email"
+              required={false}
+              value={email}
+            />
+            <CommonInput
+              handleChange={setMobile}
+              label="Mobile"
+              required
+              type="tel"
+              value={mobile}
+            />
+          </div>
+          <div>
+            <CommonInput
+              handleChange={setAddressLine1}
+              label="Address Line 1"
+              value={addressLine1}
+            />
+            <CommonInput
+              handleChange={setAddressLine2}
+              label="Address Line 2"
+              value={addressLine2}
+            />
+          </div>
+          <div>
+            <CommonInput
+              handleChange={setPincode}
+              label="Pincode"
+              value={pincode}
+            />
+            <CommonInput
+              handleChange={setDistrict}
+              label="District"
+              value={district}
+              required
+            />
+          </div>
 
-        <div>
-          <CommonInput
-            handleChange={setPassword}
-            label="Password"
-            value={password}
-            type="password"
-            required
-          />
-          <CommonInput
-            handleChange={setCnfPassword}
-            label="Confirm Password"
-            value={cnfPassword}
-            type="password"
-            required
-          />
-        </div>
+          <div>
+            <CommonInput
+              handleChange={setPassword}
+              label="Password"
+              value={password}
+              type="password"
+              required
+            />
+            <CommonInput
+              handleChange={setCnfPassword}
+              label="Confirm Password"
+              value={cnfPassword}
+              type="password"
+              required
+            />
+          </div>
 
-        <button className={classes.submitBtn} type="submit">
-          Sign Up
-        </button>
-        <button onClick={toggleForm} className={classes.toggleBtn}>
-          Already Have an Account?
-        </button>
-      </form>
-    </div>
+          <button className={classes.submitBtn} type="submit">
+            Sign Up
+          </button>
+          <button onClick={toggleForm} className={classes.toggleBtn}>
+            Already Have an Account?
+          </button>
+        </form>
+      </div>
+      {overlayMessage.length > 0 && (
+        <Overlay
+          action={OverlayConstants.ERROR}
+          cancelAction={() => setOverlayMessage("")}
+          message={overlayMessage}
+        />
+      )}
+      {isLoading && <Overlay action={OverlayConstants.LOADING} />}
+    </>
   );
 };
 
@@ -150,8 +170,11 @@ const SignInForm = ({ toggleForm }: Readonly<{ toggleForm: () => void }>) => {
 
   useEffect(() => {
     if (formRef?.current) {
-      const headerContainer = document.getElementById("header")?.clientHeight ?? 0
-      formRef.current.style.height = `${window.innerHeight - headerContainer }px`;
+      const headerContainer =
+        document.getElementById("header")?.clientHeight ?? 0;
+      formRef.current.style.height = `${
+        window.innerHeight - headerContainer
+      }px`;
     }
   }, []);
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
