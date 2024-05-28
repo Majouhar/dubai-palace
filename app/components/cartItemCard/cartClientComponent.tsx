@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import classes from "./cartClientComponent.module.css";
 import { Item, OrderItem } from "@/app/types/commonTypes";
 import CartItemCard from "./cartItemCard";
@@ -7,22 +7,24 @@ import { useRecoilState } from "recoil";
 import { cartItemsState } from "@/app/recoil/atoms/atom";
 import Overlay from "../overlay";
 import { ShoppingBagIcon, FaceFrownIcon } from "@heroicons/react/24/outline";
+import { useRouter } from "next/navigation";
 
 function CartClientComponent({
   cartItemsServer,
   itemData,
 }: Readonly<{ cartItemsServer: OrderItem[]; itemData: Item[] }>) {
   const [cartItems, setCartItems] = useRecoilState(cartItemsState);
+  const router = useRouter();
   useEffect(() => {
     if (cartItems == undefined) {
       setCartItems(cartItemsServer);
     }
   }, [cartItems, cartItemsServer, setCartItems]);
-  const handleCheckout = () => {};
-  console.log(cartItems)
+  const handleCheckout = () => {
+    router.push("/cart/confirm");
+  };
   const newItems =
     cartItems?.map((item) => {
-    
       const itemTemp = itemData.find((val: Item) => val.id === item.item_id);
       if (itemTemp) {
         itemTemp.order_quantity = item.quantity;
@@ -57,22 +59,6 @@ function CartClientComponent({
             })}
           </div>
           <div className={classes.priceContainer}>
-            <p>
-              <span>Sub Total</span> <span>₹{price}</span>
-            </p>
-            <p>
-              <span>Shipping</span> <span>₹0</span>
-            </p>
-            <p>
-              <span>Discount</span> <span>₹{price - discountPrice}</span>
-            </p>
-            <p>
-              <span>GST</span> <span>₹10</span>
-            </p>
-            <p className={classes.total}>
-              <span>Total</span> <span>₹{discountPrice + 10}</span>
-            </p>
-
             <button onClick={handleCheckout}>Checkout</button>
           </div>
         </div>

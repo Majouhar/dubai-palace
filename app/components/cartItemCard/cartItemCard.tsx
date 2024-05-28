@@ -5,7 +5,10 @@ import { Item } from "@/app/types/commonTypes";
 import Counter from "./counter";
 import ButtonContainer from "./buttonContainer";
 
-function CartItemCard({ item }: Readonly<{ item: Item }>) {
+function CartItemCard({
+  item,
+  isEditable = true,
+}: Readonly<{ item: Item; isEditable?: boolean }>) {
   const originalPrice = (item?.order_quantity ?? 0) * (item?.price ?? 0);
 
   const discountPrice =
@@ -32,7 +35,7 @@ function CartItemCard({ item }: Readonly<{ item: Item }>) {
             )}
           </div>
           <div className={classes.buttonContainer}>
-            <ButtonContainer itemId={item.id}/>
+            {isEditable ? <ButtonContainer itemId={item.id} />:<div></div>}
           </div>
         </div>
       </div>
@@ -49,7 +52,11 @@ function CartItemCard({ item }: Readonly<{ item: Item }>) {
         </p>
 
         <div>
-          <Counter value={item.order_quantity ?? 1} itemId={item.id} />
+          {isEditable ? (
+            <Counter value={item.order_quantity ?? 1} itemId={item.id} />
+          ) : (
+            <p>{item.order_quantity} Qty</p>
+          )}
         </div>
       </div>
     </div>

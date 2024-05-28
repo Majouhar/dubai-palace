@@ -50,7 +50,6 @@ const SignUpForm = ({ toggleForm }: Readonly<{ toggleForm: () => void }>) => {
         })
         .catch((e) => {
           setIsLoading(false);
-          console.log(e);
           setOverlayMessage(e);
         });
     } else {

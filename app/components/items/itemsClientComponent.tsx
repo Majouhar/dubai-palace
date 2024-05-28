@@ -33,7 +33,6 @@ function ItemClientComponent({ allData }: Readonly<{ allData: Item[] }>) {
 
   useEffect(() => {
     if (status === "authenticated" && pendingAddToCart != null) {
-      console.log(pendingAddToCart);
       new HttpClient()
         .post("/api/cart", {
           itemId: pendingAddToCart,

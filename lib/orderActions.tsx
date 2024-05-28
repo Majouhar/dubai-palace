@@ -2,6 +2,7 @@ import prisma from "./prismaClient";
 import { getFormattedDateToday } from "./utitlity";
 import { getCartItemsOfUser } from "./cartActions";
 import { getCartId, getUserId, isAdmin } from "./userActions";
+import { revalidateTag } from "next/cache";
 
 export async function createOrder() {
   const cartId = await getCartId();
@@ -12,7 +13,7 @@ export async function createOrder() {
     (sum, val) => sum + (val.price_while_order ?? 0),
     0
   );
-  await prisma.orders.create({
+  const order = await prisma.orders.create({
     data: {
       date_ordered: getFormattedDateToday(),
       items: orderItems,
@@ -25,7 +26,16 @@ export async function createOrder() {
       user_id: userId,
     },
   });
-  return 201;
+  await prisma.carts.update({
+    where:{
+      cart_id:cartId
+    },
+    data:{
+      items:[]
+    }
+  })
+  revalidateTag("cartItems");
+  return order.order_id;
 }
 
 export async function getAllOrders() {
@@ -95,11 +105,10 @@ export async function getAllOrdersofUser() {
         user_id: userId,
       },
       orderBy: {
-        date_ordered: "desc",
+        order_id: "desc",
       },
     });
   } else {
     return [];
   }
 }
-

@@ -7,7 +7,6 @@ export async function GET(
     params: { status },
   }: { params: { status: "ordered" | "shipped" | "delivered" } }
 ) {
-  console.log(status)
   const orders = await getFilteredOrders(status);
   return NextResponse.json(orders);
 }

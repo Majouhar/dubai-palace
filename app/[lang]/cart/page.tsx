@@ -14,8 +14,6 @@ async function Cart() {
   const itemData = await getAllProducts();
   const cartId = await getCartId();
   const cartItems = await cachedCartItems(cartId);
-  const userSessions = await getServerSession();
-  console.log(userSessions?.user);
 
   return (
     <CartClientComponent itemData={itemData} cartItemsServer={cartItems} />
