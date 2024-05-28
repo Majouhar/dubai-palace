@@ -1,6 +1,6 @@
 "use client";
 import { orderItemState } from "@/app/recoil/atoms/atom";
-import {  Order } from "@/app/types/commonTypes";
+import { Order } from "@/app/types/commonTypes";
 import React, { useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { v4 as uuidv4 } from "uuid";
@@ -8,10 +8,9 @@ import Overlay from "../overlay";
 import { OverlayConstants } from "@/lib/enums";
 import classes from "./orderClient.module.css";
 import OrderCard from "./orderCard";
+import { FaceFrownIcon, ShoppingBagIcon } from "@heroicons/react/24/outline";
 
-function OrderClient({
-  serverOrders,
-}: Readonly<{ serverOrders: Order[] }>) {
+function OrderClient({ serverOrders }: Readonly<{ serverOrders: Order[] }>) {
   const [orders, setOrders] = useRecoilState(orderItemState);
   useEffect(() => {
     if (orders === undefined) {
@@ -28,7 +27,15 @@ function OrderClient({
       </div>
     );
   } else if (orders && orders.length == 0) {
-    component = <div>No Orders present</div>;
+    component = (
+      <main className={classes.noItemsCart}>
+        <div className={classes.iconContainer}>
+          <ShoppingBagIcon className="size-8 bg" />
+          <FaceFrownIcon className="size-8 " />
+        </div>
+        <p className={classes.text}>No Orders Present</p>
+      </main>
+    );
   } else {
     component = <Overlay action={OverlayConstants.LOADING} />;
   }

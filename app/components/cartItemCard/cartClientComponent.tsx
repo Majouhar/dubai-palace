@@ -4,7 +4,7 @@ import classes from "./cartClientComponent.module.css";
 import { Item, OrderItem } from "@/app/types/commonTypes";
 import CartItemCard from "./cartItemCard";
 import { useRecoilState } from "recoil";
-import { cartItemsState, isCartCheckedState } from "@/app/recoil/atoms/atom";
+import { cartItemsState } from "@/app/recoil/atoms/atom";
 import Overlay from "../overlay";
 import { ShoppingBagIcon, FaceFrownIcon } from "@heroicons/react/24/outline";
 

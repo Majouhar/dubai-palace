@@ -13,9 +13,6 @@ const cachedCartItems = unstable_cache(
 async function Cart() {
   const itemData = await getAllProducts();
   const cartId = await getCartId();
-  console.log('====================================');
-  console.log(cartId);
-  console.log('====================================');
   const cartItems = await cachedCartItems(cartId);
   const userSessions = await getServerSession();
   console.log(userSessions?.user);

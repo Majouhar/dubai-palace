@@ -61,5 +61,5 @@ const order: Order = {
 };
 export const orderItemState = atom<Order[] | undefined>({
   key: "orderList",
-  default: [order,order],
+  default: undefined,
 });
