@@ -26,7 +26,7 @@ const authOptions = {
             lastName: user.last_name,
             cartId: user.cart_id,
             wishListId: user.wish_list_id,
-            isAdmin:user.is_admin,
+            isAdmin: user.is_admin,
           },
         };
       },
@@ -34,6 +34,7 @@ const authOptions = {
   ],
 
   secret: process.env.NEXTAUTH_SECRET,
+
 };
 
 const handler = NextAuth(authOptions);

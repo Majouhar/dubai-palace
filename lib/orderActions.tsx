@@ -47,7 +47,7 @@ export async function getAllOrders() {
       },
     });
   } else {
-    return {};
+    return [];
   }
 }
 export async function getFilteredOrders(
