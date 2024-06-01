@@ -50,7 +50,7 @@ function Filter({ column }: Readonly<{ column: Column<any, unknown> }>) {
     case "select":
       component = (
         <select
-        className={classes.select}
+          className={classes.select}
           onChange={(e) => column.setFilterValue(e.target.value)}
           value={columnFilterValue?.toString()}
         >
@@ -65,7 +65,7 @@ function Filter({ column }: Readonly<{ column: Column<any, unknown> }>) {
         </select>
       );
       break;
-    default:
+    case "text":
       component = (
         <input
           type="text"
@@ -76,6 +76,9 @@ function Filter({ column }: Readonly<{ column: Column<any, unknown> }>) {
           className={classes["input"]}
         ></input>
       );
+      break
+    default:
+      component = <></>;
   }
 
   return component;

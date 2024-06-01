@@ -16,12 +16,20 @@ import {
   getFacetedUniqueValues,
   getFacetedMinMaxValues,
 } from "@tanstack/react-table";
-import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/16/solid";
+import {
+  ChevronDoubleLeftIcon,
+  ChevronDoubleRightIcon,
+  ChevronDownIcon,
+  ChevronRightIcon,
+  ChevronUpIcon,
+  ChevronLeftIcon,
+} from "@heroicons/react/16/solid";
+import Link from "next/link";
 
 declare module "@tanstack/react-table" {
   //allows us to define custom properties for our columns
   interface ColumnMeta<TData extends RowData, TValue> {
-    filterVariant?: "text" | "range" | "select";
+    filterVariant?: "text" | "range" | "select" | "none";
   }
 }
 
@@ -37,7 +45,14 @@ function AdminOrderPage({ orders }: Readonly<{ orders: Order[] }>) {
   const columns = React.useMemo(
     () => [
       columnHelper.accessor((row) => row.order_id.toString(), {
-        cell: (info) => info.getValue(),
+        cell: (info) => (
+          <Link
+            className={styles.linkName}
+            href={`/admin/orders/${info.getValue()}`}
+          >
+            {info.getValue()}
+          </Link>
+        ),
         header: "Order",
         meta: {
           filterVariant: "text",
@@ -88,17 +103,15 @@ function AdminOrderPage({ orders }: Readonly<{ orders: Order[] }>) {
         meta: {
           filterVariant: "select",
         },
-        size: 100,
       }),
-      columnHelper.accessor((row) => row.user_id.toString(), {
-        cell: (info) => info.getValue(),
-        header: "User ID",
-        meta: {
-          filterVariant: "text",
-        },
-        size: 100,
-    
-      }),
+      // columnHelper.accessor((row) => row.user_id.toString(), {
+      //   cell: (info) => info.getValue(),
+      //   header: "User ID",
+      //   meta: {
+      //     filterVariant: "text",
+      //   },
+      //   size: 100,
+      // }),
     ],
     [columnHelper]
   );
@@ -185,52 +198,36 @@ function AdminOrderPage({ orders }: Readonly<{ orders: Order[] }>) {
             </tr>
           ))}
         </tbody>
-        {/* <tfoot>
-          {table.getFooterGroups().map((footerGroup) => (
-            <tr key={footerGroup.id}>
-              {footerGroup.headers.map((header) => (
-                <th key={header.id}>
-                  {header.isPlaceholder
-                    ? null
-                    : flexRender(
-                        header.column.columnDef.footer,
-                        header.getContext()
-                      )}
-                </th>
-              ))}
-            </tr>
-          ))}
-        </tfoot> */}
       </table>
       <div className="h-4" />
-      <div className="flex items-center gap-2">
+      <div className={styles.paginationMain}>
         <button
           className="border rounded p-1"
           onClick={() => table.setPageIndex(0)}
           disabled={!table.getCanPreviousPage()}
         >
-          {"<<"}
+          <ChevronDoubleLeftIcon className="size-8 p-1 border-2 border-black rounded-full" />
         </button>
         <button
           className="border rounded p-1"
           onClick={() => table.previousPage()}
           disabled={!table.getCanPreviousPage()}
         >
-          {"<"}
+          <ChevronLeftIcon className="size-8 p-1 border-2 border-black rounded-full" />
         </button>
         <button
           className="border rounded p-1"
           onClick={() => table.nextPage()}
           disabled={!table.getCanNextPage()}
         >
-          {">"}
+          <ChevronRightIcon className="size-8 p-1 border-2 border-black rounded-full" />
         </button>
         <button
           className="border rounded p-1"
           onClick={() => table.setPageIndex(table.getPageCount() - 1)}
           disabled={!table.getCanNextPage()}
         >
-          {">>"}
+          <ChevronDoubleRightIcon className="size-8 p-1 border-2 border-black rounded-full" />
         </button>
         <span className="flex items-center gap-1">
           <div>Page</div>
@@ -239,7 +236,7 @@ function AdminOrderPage({ orders }: Readonly<{ orders: Order[] }>) {
             {table.getPageCount()}
           </strong>
         </span>
-        <span className="flex items-center gap-1">
+        {/* <span className="flex items-center gap-1">
           {"| Go to page:"}
           <input
             type="number"
@@ -250,8 +247,9 @@ function AdminOrderPage({ orders }: Readonly<{ orders: Order[] }>) {
             }}
             className="border p-1 rounded w-16"
           />
-        </span>
+        </span> */}
         <select
+          className={styles.paginationSelect}
           value={table.getState().pagination.pageSize}
           onChange={(e) => {
             table.setPageSize(Number(e.target.value));
@@ -264,14 +262,16 @@ function AdminOrderPage({ orders }: Readonly<{ orders: Order[] }>) {
           ))}
         </select>
       </div>
-      <div>{table.getPrePaginationRowModel().rows.length} Rows</div>
-      <pre>
+      <div className={styles.paginationRows}>
+        {table.getPrePaginationRowModel().rows.length} Rows
+      </div>
+      {/* <pre>
         {JSON.stringify(
           { columnFilters: table.getState().columnFilters },
           null,
           2
         )}
-      </pre>
+      </pre> */}
     </div>
   );
 }

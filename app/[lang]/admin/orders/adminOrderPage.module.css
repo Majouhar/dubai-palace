@@ -16,3 +16,15 @@
     background-color: rgb(67, 67, 67);
     color: white;
 }
+.paginationMain{
+    display: flex;
+    justify-content: flex-start;
+}
+.paginationSelect{
+    border: 1px solid black;
+    margin-left: 10px;
+}
+.linkName{
+    width: 100%;
+    text-decoration: underline;
+}

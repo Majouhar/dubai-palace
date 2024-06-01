@@ -58,6 +58,15 @@ export async function getUserDetails() {
   return await getUser(mobile ?? "");
 }
 
+export async function getUserDetailsById(id: number) {
+  const user = await prisma.users.findUnique({
+    where: {
+      user_id: id,
+    },
+  });
+  return user;
+}
+
 export async function updateUser(mobile: string, details: any) {
   const user = await getUser(mobile);
   let hashPwd: string | undefined;
