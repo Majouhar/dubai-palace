@@ -1,0 +1,69 @@
+.orderDetails {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.orderTitle {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.orderInfo {
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.section {
+    margin-bottom: 20px;
+}
+
+.status {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.button {
+    background-color: var(--COLOR-PRIMARY);
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.button:hover {
+    opacity: 0.8;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.itemImage {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    margin-right: 10px;
+    border-radius: 4px;
+}
+
+.itemDetails p {
+    margin: 0;
+}
+.expDlvy{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.expDlvy > input{
+    outline: none;
+    border: 1px solid black;
+    padding: 4px 10px;
+    border-radius: 5px;
+}

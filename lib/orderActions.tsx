@@ -27,13 +27,13 @@ export async function createOrder() {
     },
   });
   await prisma.carts.update({
-    where:{
-      cart_id:cartId
+    where: {
+      cart_id: cartId,
     },
-    data:{
-      items:[]
-    }
-  })
+    data: {
+      items: [],
+    },
+  });
   revalidateTag("cartItems");
   return order.order_id;
 }
@@ -70,7 +70,9 @@ export async function getFilteredOrders(
 export async function updateOrderStatus(
   orderId: number,
   status: "ordered" | "shipped" | "delivered",
-  expectedDelivery?: string
+  expectedDelivery?: string,
+  deliveryDate?: string,
+  shippedDate?: string
 ) {
   const isAdminAccess = await isAdmin();
   if (isAdminAccess) {
@@ -81,6 +83,8 @@ export async function updateOrderStatus(
       data: {
         status: status,
         expected_delivery_date: expectedDelivery ?? "",
+        delivered_date: deliveryDate ?? "",
+        shipped_date: shippedDate ?? "",
       },
     });
     return 201;
@@ -94,7 +98,12 @@ export async function getOrderById(orderId: number) {
       order_id: orderId,
     },
   });
-  return order;
+  const user = await getUserId();
+  if (order?.user_id == user || (await isAdmin())) {
+    return order;
+  } else {
+    return;
+  }
 }
 export async function getAllOrdersofUser() {
   //@ts-expect-error

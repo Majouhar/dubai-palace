@@ -1,0 +1,55 @@
+.mainContainer{
+    width: fit-content;
+    position: relative;
+}
+.handler{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    gap:10px;
+}
+.container{
+    position: absolute;
+    border: 1px solid black;
+    background-color: white;
+    width: fit-content;
+    padding: 5px 10px;
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: auto;
+    .input{
+        width: 120px;
+        border: 1px solid black;
+        padding: 2px 5px;
+        margin-bottom: 5px;
+    }
+    .option{
+        cursor: pointer;
+        width: 100%;
+        padding: 2px 5px;
+        border-bottom: 1px solid rgba(128, 128, 128, 0.337);
+    }
+    .optionAdd{
+      text-align: center;  
+      padding: 2px 5px;
+      background-color: var(--COLOR-TERTIARY);
+      color:var(--COLOR-PRIMARY);
+      border-radius: 10px;
+      margin: 5px 0px;
+      cursor: pointer;
+
+    }
+    .addBtn{
+        width: 100%;
+        background-color: var(--COLOR-PRIMARY);
+        color:white;
+        border-radius: 10px;
+    }
+}

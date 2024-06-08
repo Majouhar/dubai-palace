@@ -90,3 +90,13 @@ model returns {
   expected_date_returned String  @db.VarChar(255)
   user_id                Int
 }
+
+model groups {
+  group_id Int    @id @default(autoincrement())
+  name     String @db.VarChar(255)
+}
+
+model brands {
+  brand_id Int    @id @default(autoincrement())
+  name     String @db.VarChar(255)
+}

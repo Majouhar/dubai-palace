@@ -78,3 +78,11 @@ export type WishList = {
   itemIDs: string[];
   wishListId: number;
 };
+export type Group = {
+  group_id: number;
+  name: string;
+};
+export type Brand = {
+  brand_id: number;
+  name: string;
+};

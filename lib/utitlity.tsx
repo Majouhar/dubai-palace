@@ -46,3 +46,7 @@ export function convertDate(date: string): string {
   //@ts-expect-error
   return `${monthMap[month]} ${day}, ${year}`;
 }
+
+export function titleFn(string: string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
